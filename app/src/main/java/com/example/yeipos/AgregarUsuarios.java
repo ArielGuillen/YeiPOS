@@ -7,19 +7,17 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yeipos.modelos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -75,11 +73,13 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+
                                             Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario", Toast.LENGTH_SHORT).show();
                                             DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
                                             Usuario usuario = new Usuario(uName, email, psw1);
-                                            prodReference.child("usuario").setValue(usuario);
-                                        } else {
+                                            prodReference.child("usuario").child(uName).setValue(usuario);
+                                        }
+                                        else {
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException)
                                                 Toast.makeText(AgregarUsuarios.this, "El usuario ya existe",
                                                         Toast.LENGTH_SHORT).show();

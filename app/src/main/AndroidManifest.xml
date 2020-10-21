@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yeipos">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,17 +13,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".AgregarUsuarios"
-            android:label="@string/title_activity_add">
-        </activity>
+            android:label="@string/title_activity_add"></activity>
         <activity
             android:name=".Administrar"
-            android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_administrar"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"
-            />
+            android:value=".MainActivity" />
+
         <activity
             android:name=".RegistroDeVentas"
             android:label="@string/ventas" />

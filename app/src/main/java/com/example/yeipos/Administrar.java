@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.yeipos.viewholders.AdapterUsuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -22,11 +23,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +37,10 @@ import java.util.List;
 public class Administrar extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ListAdapter listAdapter;
+    private AdapterUsuario adaptador;
 
     private boolean user = true;
-    private List<ListElement> elements;
+    private ArrayList<ListElement> elements;
 
     //---------------------------------------Methods Override------------------------------------------------
     @Override
@@ -49,7 +52,11 @@ public class Administrar extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
-        init();
+        recyclerView = findViewById( R.id.listRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager( this ) );
+
+        loadList();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -96,77 +103,71 @@ public class Administrar extends AppCompatActivity {
 
 
     //-------------------------------Activity Methods-------------------------------
-    public void init(){
 
-        loadList();
-        buildRecyclerView();
-    }
-
-
-    private void buildRecyclerView() {
-
-        listAdapter = new ListAdapter( elements, this);
-        recyclerView = findViewById( R.id.listRecyclerView);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager( this ) );
-        recyclerView.setAdapter( listAdapter );
-
-        listAdapter.setOnClickListener(new ListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                changeItem( position );
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-
-                removeItem( position );
-            }
-
-            @Override
-            public void onEditClick(int position) {
-
-                editItem( position );
-            }
-
-
-        });
-
-
-    }
 
     public void loadList(){
 
-        elements = new ArrayList<>();
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        db.getReference().child("usuario").addValueEventListener(new ValueEventListener() {
-                  @Override
-                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                      if( dataSnapshot.exists() ) {
-                          elements = new ArrayList<>();
-                          for (DataSnapshot snapshot : dataSnapshot.getChildren() ) {
-                              String nu = String.valueOf( snapshot.child("name").getValue() );
-                              String em = String.valueOf( snapshot.child("correo").getValue() );
-                              ListElement usuario = new ListElement( nu, em );
-                              elements.add(usuario);
-                          }
-                          listAdapter.notifyDataSetChanged();
-                      }
-                  }
+        elements = new ArrayList<ListElement>();
+        final DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
+        prodReference.child("usuario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if( snapshot.exists() ){
+                    for (DataSnapshot dataS : snapshot.getChildren()) {
+                        Log.e("Datos: ", "" + dataS.getValue());
+                        String user = String.valueOf( dataS.child("name").getValue() );
+                        String mail = String.valueOf( dataS.child("correo").getValue() );
+                        Log.e("Nombre: ", "" + user );
+                        Log.e("Email: ", "" + mail );
+                        elements.add(new ListElement(user, mail));
+                    }
+                }
+                adaptador = new AdapterUsuario( elements );
+                recyclerView.setAdapter( adaptador );
 
-                  @Override
-                  public void onCancelled(@NonNull DatabaseError error) {
+            }
 
-                  }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
         });
-        /*
-        elements.add( new ListElement("#c62828",  "Pedro1@correo.com"));
+
+        /*elements.add( new ListElement("#c62828",  "Pedro1@correo.com"));
         elements.add( new ListElement("#c62828","Julio12@correo.com"));
         elements.add( new ListElement("#c62828",  "MaríaDB@correo.com"));*/
 
     }
+
+   /* private void buildRecyclerView() {
+
+    recyclerView.setHasFixedSize(true);
+
+    recyclerView.setLayoutManager(new LinearLayoutManager( this ) );
+    recyclerView.setAdapter( listAdapter );
+
+    listAdapter.setOnClickListener(new ListAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(int position) {
+            changeItem( position );
+        }
+
+        @Override
+        public void onDeleteClick(int position) {
+
+            removeItem( position );
+        }
+
+        @Override
+        public void onEditClick(int position) {
+
+            editItem( position );
+        }
+
+
+    });
+    }*/
+
 
 
     //---------------------------RecyclerView Events--------------------------------------
@@ -179,7 +180,7 @@ public class Administrar extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 elements.remove(position);
-                listAdapter.notifyItemRemoved( position );
+                adaptador.notifyItemRemoved( position );
             }
         })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -222,7 +223,7 @@ public class Administrar extends AppCompatActivity {
                         intent.putExtra("email",  email );
                         intent.putExtra("name",  name );
                         startActivity(intent);
-                        listAdapter.notifyItemChanged( position );
+                        adaptador.notifyItemChanged( position );
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

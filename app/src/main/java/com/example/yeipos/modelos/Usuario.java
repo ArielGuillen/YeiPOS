@@ -1,4 +1,4 @@
-package com.example.yeipos;
+package com.example.yeipos.modelos;
 
 public class Usuario {
     String name;
