@@ -1,2 +1,4 @@
+include ':hellocharts-library-1.5.8'
+include ':hellocharts-library-1.5.8'
 include ':app'
 rootProject.name='YeiPOS'

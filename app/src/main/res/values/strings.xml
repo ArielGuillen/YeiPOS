@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">YeiPOS</string>
+
+    <!-- Strings Login  view-->
+    <string name="pass">Contraseña (min 6 caracteres)</string>
+    <string name="email">Correo electrónico</string>
+    <string name="log">Iniciar Sesión</string>
+    <string name="reg">Registrarse</string>
+    <string name="alert">Usuario o Contraseña Incorrectos</string>
+
+    <!-- Strings Registro de Ventas-->
+    <string name="ventas">Registro de Ventas</string>
+    <string name="cant">Ventas en miles</string>
+    <string name="title_activity_administrar">Administrar</string>
+
+    <!-- Strings Registro de Ventas-->
+
+    <string name="icUser">Usuarios</string>
+    <string name="icProd">Productos</string>
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+    <!-- Strings Agregar  Usuarios-->
+    <string name="title_activity_add">Agregar Usuario</string>
+    <string name="addUser">Agregar Usuario</string>
+    <string name="addNUser">Nombre</string>
+    <string name="addUserEmail">Correo Electrónico</string>
+    <string name="confirmpass">Confirmar Contraseña</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
