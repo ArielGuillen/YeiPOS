@@ -1,6 +1,5 @@
 package com.example.yeipos;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,21 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.Producto;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class AgregarOrden extends AppCompatActivity implements ElegantNumberButton.OnClickListener {
@@ -190,7 +184,7 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
         orden.setDate(GuardarFecha);
         orden.setTime(GuardarHora);
         orden.setStatus(true);
-        orden.setProductos(productoList);
+        orden.setOrdenItems(productoList);
 
         mDatabase.child(ordenKey).setValue(orden);
         //mDatabase.child(ordenKey).child("items").push();

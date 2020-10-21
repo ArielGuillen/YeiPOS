@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navView;
     private Toolbar myToolBar;
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-//        fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                OpenAgregarOrden();
-//            }
-//        });
-
         myToolBar = (Toolbar) findViewById(R.id.topAppBar);
         setSupportActionBar(myToolBar);
         myToolBar.setNavigationOnClickListener(myClickListener);
@@ -51,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
         }
     };
-    public void OpenAgregarOrden(){
-        Intent intent=new Intent(this, AgregarOrden.class);
-        startActivity(intent);
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

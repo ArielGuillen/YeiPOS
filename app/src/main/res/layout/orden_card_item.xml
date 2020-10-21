@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="4dp"
+    android:elevation="2dp"
+    android:id="@+id/cardview_orden">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="16dp">
+            <TextView
+                android:id="@+id/txt_mesa_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mesa"
+                android:layout_marginHorizontal="20sp"
+                android:layout_margin="16dp"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/txt_hora_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20sp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
+                android:text="HH:mm"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/list_orden_items"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/editar_boton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Editar"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"/>
+            <Button
+                android:id="@+id/terminar_boton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Terminar"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

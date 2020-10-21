@@ -2,6 +2,8 @@ package com.example.yeipos;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
     //Referencia a la bd
     private DatabaseReference productoReference;
     ItemInventario itemInventario;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,8 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
                 validarDatos();
             }
         });
+
+        //navController = Navigation.findNavController();
 
     }
 
@@ -142,8 +147,8 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful()){
-            Intent intent = new Intent(AddToInventario.this, MainActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(AddToInventario.this, MainActivity.class);
+//            startActivity(intent);
             Toast.makeText(AddToInventario.this, "Producto añadido exitosamente..", Toast.LENGTH_SHORT).show();
         }else{
             String message = task.getException().toString();

@@ -1,20 +1,21 @@
 package com.example.yeipos.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Orden {
-    private String numMesa, cuentaAcumulada, date, time;
+    private String numMesa, total, date, time;
     private Boolean status;
-    private List<Producto> productos;
+    private ArrayList<Producto> ordenItems;
 
     public Orden(){ }
 
-    public Orden(String numMesa, String cuentaAcumulada, String date, String time, Boolean status){
+    public Orden(String numMesa, String total, String date, String time, Boolean status, ArrayList<Producto> ordenItems) {
         this.numMesa = numMesa;
-        this.cuentaAcumulada = cuentaAcumulada;
+        this.total = total;
         this.date = date;
         this.time = time;
         this.status = status;
+        this.ordenItems = ordenItems;
     }
 
     public String getNumMesa() {
@@ -25,12 +26,12 @@ public class Orden {
         this.numMesa = numMesa;
     }
 
-    public String getCuentaAcumulada() {
-        return cuentaAcumulada;
+    public String getTotal() {
+        return total;
     }
 
-    public void setCuentaAcumulada(String cuentaAcumulada) {
-        this.cuentaAcumulada = cuentaAcumulada;
+    public void setTotal(String total) {
+        this.total = total;
     }
 
     public String getDate() {
@@ -57,11 +58,13 @@ public class Orden {
         this.status = status;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public ArrayList<Producto> getOrdenItems() {
+        return ordenItems;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setOrdenItems(ArrayList<Producto> ordenItems) {
+        this.ordenItems = ordenItems;
     }
+
+
 }

@@ -1,5 +1,4 @@
 package com.example.yeipos.viewHolder;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.example.yeipos.interfaces.ItemClickListener;
 import com.example.yeipos.model.CardItem;
 
 import java.util.ArrayList;
-
 
 //Esta clase es para ser usada con el metodo de FIREBASEUI
 public class InventarioCardAdapterV2 extends RecyclerView.Adapter<InventarioCardAdapterV2.ViewHolder> {
