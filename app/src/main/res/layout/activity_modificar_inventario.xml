@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddToInventario">
+    tools:context=".ModificarInventario">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/inventarioAppbar"
@@ -18,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="Agregar producto"/>
+            app:title="Modificar producto"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -32,6 +33,7 @@
 
         <EditText
             android:id="@+id/txt_nombreProducto"
+            android:importantForAutofill="no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -40,24 +42,24 @@
             android:hint="Nombre del producto"
             android:inputType="textMultiLine"
             android:padding="20dp"
-            android:paddingTop="20dp"
-            android:importantForAutofill="no"/>
+            android:paddingTop="20dp" />
 
         <EditText
             android:id="@+id/txt_cantidadProd"
+            android:importantForAutofill="no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="30dp"
             android:hint="Cantidad"
-            android:inputType="number"
+            android:inputType="text"
             android:padding="20dp"
-            android:paddingTop="20dp"
-            android:importantForAutofill="no"/>
+            android:paddingTop="20dp" />
 
         <EditText
             android:id="@+id/txt_precioProducto"
+            android:importantForAutofill="no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -66,8 +68,7 @@
             android:hint="Precio"
             android:inputType="numberDecimal"
             android:padding="20dp"
-            android:paddingTop="20dp"
-            android:importantForAutofill="no"/>
+            android:paddingTop="20dp" />
 
         <TextView
             android:id="@+id/txt_catProducto"
@@ -91,12 +92,12 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/add_button_inventario"
+        android:id="@+id/modificar_boton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="Agregar"
+        android:text="Modificar"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

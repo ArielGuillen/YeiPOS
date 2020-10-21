@@ -22,10 +22,5 @@
         android:name="com.example.yeipos.ui.administrar.AdministrarFragment"
         android:label="@string/title_administrar"
         tools:layout="@layout/fragment_administrar" />
-<!--    <activity-->
-<!--        android:id="@+id/inventario"-->
-<!--        android:name="com.example.yeipos.Inventario"-->
-<!--        android:label="activity_inventario"-->
-<!--        tools:layout="@layout/activity_inventario" />-->
 
 </navigation>
