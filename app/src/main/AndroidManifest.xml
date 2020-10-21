@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".login_actividad"></activity>
         <activity
-            android:name=".AgregarUsuarios"
-            android:label="@string/title_activity_add"></activity>
+            android:name=".users.AgregarUsuarios"
+            android:label="@string/title_activity_add" />
         <activity
-            android:name=".Administrar"
+            android:name=".users.Administrar"
             android:label="@string/title_activity_administrar"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

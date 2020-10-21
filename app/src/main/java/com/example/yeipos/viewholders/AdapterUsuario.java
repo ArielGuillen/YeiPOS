@@ -8,11 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yeipos.ListElement;
+import com.example.yeipos.users.ListElement;
 import com.example.yeipos.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.ViewHolder>{
 
