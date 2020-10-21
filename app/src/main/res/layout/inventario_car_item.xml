@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:id="@+id/cardview_id">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/cardNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:text="Nombre"
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"></TextView>
+
+        <TextView
+            android:id="@+id/cardIngreso"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:text="Ingreso"
+            android:textSize="18sp"
+            android:layout_toRightOf="@id/label_cantidad"
+            android:layout_marginTop="50dp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/label_cantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:text="Ingreso:"
+            android:padding="10dp"
+            android:layout_marginTop="50dp"></TextView>
+        <TextView
+            android:id="@+id/cardCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:text="0000"
+            android:textSize="18sp"
+            android:layout_toEndOf="@id/cardNombre"></TextView>
+
+        <ImageView
+            android:id="@+id/image_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="@color/colorSecondary"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            ></ImageView>
+
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:tint="@color/colorSecondary"
+            android:layout_alignParentEnd="true"></ImageView>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

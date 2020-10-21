@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.yeipos.ui.home.HomeFragment"
+        android:label="@string/title_ordenes"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_inventario"
+        android:name="com.example.yeipos.ui.inventario.InventarioFragment"
+        android:label="@string/title_inventario"
+        tools:layout="@layout/fragment_inventario" />
+
+    <fragment
+        android:id="@+id/navigation_administrar"
+        android:name="com.example.yeipos.ui.administrar.AdministrarFragment"
+        android:label="@string/title_administrar"
+        tools:layout="@layout/fragment_administrar" />
+<!--    <activity-->
+<!--        android:id="@+id/inventario"-->
+<!--        android:name="com.example.yeipos.Inventario"-->
+<!--        android:label="activity_inventario"-->
+<!--        tools:layout="@layout/activity_inventario" />-->
+
+</navigation>

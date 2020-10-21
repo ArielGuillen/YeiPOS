@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">YeiPOS</string>
+    <string name="title_ordenes">Ordenes</string>
+    <string name="title_inventario">Inventario</string>
+    <string name="title_administrar">Administrar</string>
+
+    <!--en caso de necesitar resources para las ordenes cards-->
+    <string-array name="categorias">
+        <item>Seleccionar</item>
+        <item>comidas</item>
+        <item>bebidas</item>
+        <item>otros</item>
+    </string-array>
 </resources>

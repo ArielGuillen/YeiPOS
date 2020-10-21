@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "913277790152",
+    "firebase_url": "https://yeipos-72964.firebaseio.com",
+    "project_id": "yeipos-72964",
+    "storage_bucket": "yeipos-72964.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913277790152:android:b7eb774b0b25d9be1e02fd",
+        "android_client_info": {
+          "package_name": "com.axelflores.yeipos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913277790152-6a8uahl2fsof4m01jhiesg2cv3libem7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIupN7l__sLnlX1qGXfuvJO8HogVz55Po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913277790152-6a8uahl2fsof4m01jhiesg2cv3libem7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
