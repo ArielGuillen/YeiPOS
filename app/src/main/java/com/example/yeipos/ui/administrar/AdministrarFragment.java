@@ -22,13 +22,6 @@ public class AdministrarFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         administrarViewModel = new ViewModelProvider(this).get(AdministrarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_administrar, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        administrarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

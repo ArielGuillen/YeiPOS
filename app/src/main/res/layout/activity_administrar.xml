@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".users.Administrar">
 
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorAccent"
+        android:tint="@color/colorAccent"
         app:srcCompat="@drawable/plus" />
 
     <androidx.recyclerview.widget.RecyclerView
