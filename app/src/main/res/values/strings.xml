@@ -36,4 +36,15 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_listar_usuarios">ListarUsuarios</string>
+    <string name="title_ordenes">Ordenes</string>
+    <string name="title_inventario">Inventario</string>
+    <string name="title_administrar">Administrar</string>
+
+    <!--en caso de necesitar resources para las ordenes cards-->
+    <string-array name="categorias">
+        <item>Seleccionar</item>
+        <item>comidas</item>
+        <item>bebidas</item>
+        <item>otros</item>
+    </string-array>
 </resources>

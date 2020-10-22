@@ -1,112 +1,68 @@
 package com.example.yeipos;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.yeipos.users.Administrar;
-import com.example.yeipos.users.AgregarUsuarios;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.yeipos.ui.home.HomeFragment;
+import com.example.yeipos.ui.inventario.InventarioFragment;
+import com.example.yeipos.ui.administrar.AdministrarFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-    Button buttonLogin, buttonSignin;
-    EditText txtCorreo, txtPassword;
-    String email, psw;
+public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    BottomNavigationView navView;
+    private Toolbar myToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.buttonLogin = findViewById( R.id.buttonLogin );
-        this.buttonSignin = findViewById( R.id.buttonSignin );
-        this.txtCorreo = findViewById( R.id.txtUserMail );
-        this.txtPassword = findViewById( R.id.txtPassword );
+        navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(navListener);
 
-        mAuth = FirebaseAuth.getInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-        this.buttonLogin.setOnClickListener( this) ;
-        this.buttonSignin.setOnClickListener( this );
-
+        myToolBar = (Toolbar) findViewById(R.id.topAppBar);
+        setSupportActionBar(myToolBar);
+        myToolBar.setNavigationOnClickListener(myClickListener);
     }
 
-    public void loginUser(){
-
-            email = txtCorreo.getText( ).toString( );
-            psw = txtPassword.getText( ).toString( );
-            if( validaCamposVacios() ) {
-                email = String.valueOf(txtCorreo.getText()).trim();
-                psw = String.valueOf(txtPassword.getText()).trim();
-
-                mAuth.signInWithEmailAndPassword(email, psw)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(MainActivity.this, Administrar.class);
-                                    startActivity(intent);
-                                    Toast.makeText(MainActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
-
-
-            }
-            else{
-                AlertDialog.Builder alert = new AlertDialog.Builder( MainActivity.this );
-                alert.setMessage("Debe llenar los campos Correo y Contraseña")
-                        .setCancelable(false)
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog titulo = alert.create();
-                titulo.setTitle("Campos Vacíos");
-                titulo.show();
-            }
-
-    }
-
-    public boolean validaCamposVacios(){
-        String c = String.valueOf( txtCorreo.getText() ).trim();
-        String p = String.valueOf( txtPassword.getText() ).trim();
-        if( !c.isEmpty() && !p.isEmpty()  )
-            return true;
-        else
-            return false;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch ( v.getId() ) {
-            case R.id.buttonLogin:
-                loginUser();
-                break;
-            case R.id.buttonSignin:
-                Intent intent = new Intent(MainActivity.this, AgregarUsuarios.class);
-                startActivity(intent);
-                break;
+    private View.OnClickListener myClickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
         }
-    }
+    };
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            Fragment selectedFragment = null;
+
+            switch(item.getItemId()){
+                case R.id.navigation_ordenes:
+                    selectedFragment = new HomeFragment();
+                    break;
+                case R.id.navigation_inventario:
+                    selectedFragment = new InventarioFragment();
+                    break;
+                case R.id.navigation_administrar:
+                    selectedFragment = new AdministrarFragment();
+                    break;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            return true;
+        }
+    };
 }
