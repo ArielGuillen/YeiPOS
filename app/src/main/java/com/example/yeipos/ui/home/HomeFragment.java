@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yeipos.AgregarOrden;
 import com.example.yeipos.R;
 import com.example.yeipos.interfaces.ItemClickListener;
+import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.OrderCardViewHome;
 import com.example.yeipos.viewHolder.OrdenesCardAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -105,51 +108,51 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 //        });
 //    }
 
-//    public void onStart() {
-//        super.onStart();
-//
-//        FirebaseRecyclerOptions<Orden> options =
-//                new FirebaseRecyclerOptions.Builder<Orden>()
-//                        .setQuery(ordenesRef.child("orden"), Orden.class)
-//                        .build();
-//
-//        FirebaseRecyclerAdapter adapter =
-//                new FirebaseRecyclerAdapter<Orden, OrdenesCardAdapter.ViewHolderOrden>(options) {
-//                    @Override
-//                    protected void onBindViewHolder(@NonNull OrdenesCardAdapter.ViewHolderOrden holder,
-//                                                    int position, @NonNull final Orden model) {
-//                        holder.textViewMesa.setText(model.getNumMesa());
-//                        holder.textViewFecha.setText(model.getTime());
-//                        //holder.listV = ArrayAdapter
-////                        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
-////                            @Override
-////                            public void onClick(View view) {
-////                                String id = model.getId();
-////                                inventarioRef.child("inventario").child(id).removeValue();
-////                                Toast.makeText(getActivity(),"Producto eliminado",Toast.LENGTH_SHORT).show();
-////                            }
-////                        });
-////                        holder.mEditImage.setOnClickListener(new View.OnClickListener() {
-////                            @Override
-////                            public void onClick(View view) {
-////                                String id = model.getId();
-////                                Intent intent = new Intent(getActivity(), ModificarInventario.class);
-////                                intent.putExtra("message", id);
-////                                startActivity(intent);
-////                            }
-////                        });
-//                    }
-//                    @NonNull
-//                    @Override
-//                    public OrdenesCardAdapter.ViewHolderOrden onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orden_card_item, parent, false);
-//                        OrdenesCardAdapter.ViewHolderOrden holder = new  OrdenesCardAdapter.ViewHolderOrden(view);
-//                        return holder;
-//                    }
-//                };
-//        mRecyclerView.setAdapter(adapter);
-//        adapter.startListening();
-//    }
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Orden> options =
+                new FirebaseRecyclerOptions.Builder<Orden>()
+                        .setQuery(ordenesRef.child("orden"), Orden.class)
+                        .build();
+
+        FirebaseRecyclerAdapter adapter =
+                new FirebaseRecyclerAdapter<Orden, OrdenesCardAdapter.ViewHolderOrden>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull OrdenesCardAdapter.ViewHolderOrden holder,
+                                                    int position, @NonNull final Orden model) {
+                        holder.textViewMesa.setText(model.getNumMesa());
+                        holder.textViewFecha.setText(model.getTime());
+                        //holder.listV = ArrayAdapter
+//                        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                String id = model.getId();
+//                                inventarioRef.child("inventario").child(id).removeValue();
+//                                Toast.makeText(getActivity(),"Producto eliminado",Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                        holder.mEditImage.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                String id = model.getId();
+//                                Intent intent = new Intent(getActivity(), ModificarInventario.class);
+//                                intent.putExtra("message", id);
+//                                startActivity(intent);
+//                            }
+//                        });
+                    }
+                    @NonNull
+                    @Override
+                    public OrdenesCardAdapter.ViewHolderOrden onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orden_card_item, parent, false);
+                        OrdenesCardAdapter.ViewHolderOrden holder = new  OrdenesCardAdapter.ViewHolderOrden(view);
+                        return holder;
+                    }
+                };
+        mRecyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
 
     @Override
     public void onDeleteClick(View view, int position) {

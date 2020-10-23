@@ -168,7 +168,7 @@
                     android:layout_weight="1"
                     android:elevation="4dp"
                     android:padding="6dp"
-                    android:text="bebida1"
+                    android:text="Jugo Boing"
                     android:textSize="18sp"></TextView>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -190,7 +190,7 @@
                     android:layout_weight="1"
                     android:elevation="4dp"
                     android:padding="6dp"
-                    android:text="bebida2"
+                    android:text="Michelada"
                     android:textSize="18sp"></TextView>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -212,7 +212,7 @@
                     android:layout_weight="1"
                     android:elevation="4dp"
                     android:padding="6dp"
-                    android:text="Bebida3"
+                    android:text="Cerveza en lata"
                     android:textSize="18sp"></TextView>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -234,7 +234,7 @@
                     android:layout_weight="1"
                     android:elevation="4dp"
                     android:padding="6dp"
-                    android:text="bebida4"
+                    android:text="Michelada grande"
                     android:textSize="18sp"></TextView>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
