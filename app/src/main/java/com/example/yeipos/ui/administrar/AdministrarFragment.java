@@ -39,6 +39,7 @@ public class AdministrarFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterUsuario adaptador;
     AppCompatActivity activity;
+    Toolbar toolbar;
 
     private boolean user = true;
     private ArrayList<ListElement> elements;
@@ -48,7 +49,7 @@ public class AdministrarFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_administrar, container, false);
 
 
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.topAppBar);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.topAppBar);
         activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
 //        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,7 +58,7 @@ public class AdministrarFragment extends Fragment {
         recyclerView = root.findViewById( R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager( getActivity() ) );
-
+        setHasOptionsMenu(true);
 
         loadList();
 
@@ -106,7 +107,6 @@ public class AdministrarFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
-        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
     @Override

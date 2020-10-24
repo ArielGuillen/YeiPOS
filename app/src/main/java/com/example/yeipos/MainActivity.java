@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-
-        setSupportActionBar(myToolBar);
-        myToolBar.setNavigationOnClickListener(myClickListener);
     }
 
     private View.OnClickListener myClickListener=new View.OnClickListener() {
