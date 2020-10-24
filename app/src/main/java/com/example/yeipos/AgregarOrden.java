@@ -1,10 +1,12 @@
 package com.example.yeipos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.Producto;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AgregarOrden extends AppCompatActivity implements ElegantNumberButton.OnClickListener {
+public class AgregarOrden extends AppCompatActivity implements ElegantNumberButton.OnClickListener, OnCompleteListener<Void>, AdapterView.OnItemSelectedListener {
     private String mesaString = "";
     private int num1,num2,num3,num4,num5,num6,num7,num8;
     private Spinner mesasDropdown;
@@ -118,7 +122,8 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mesas);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mesasDropdown.setAdapter(adapter);
-        mesaString = mesasDropdown.getSelectedItem().toString();
+        mesasDropdown.setOnItemSelectedListener(this);
+        //mesaString = mesasDropdown.getSelectedItem().toString();
 
         addOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +155,7 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
     }
 
     private void validarDatosOrden(){
-        if (mesaString == "") {
+        if (mesaString.equals("")) {
             Toast.makeText(this, "Seleccione mesa", Toast.LENGTH_SHORT).show();
         }else if(num1 == 0 && num2 == 0 && num3 == 0 && num4 == 0 && num5 == 0 && num6 == 0 && num7 == 0 && num8 == 0){
             Toast.makeText(this, "Seleccione algun platillo/bebida", Toast.LENGTH_SHORT).show();
@@ -164,13 +169,13 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
             for (Producto member : productoList){
                 Log.i("orden name: ", member.getNombre());
             }
-            //subirDatosOrden();
+            subirDatosOrden();
         }
     }
 
     private void subirDatosOrden(){
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
         GuardarFecha = currentDate.format(calendar.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
@@ -186,7 +191,7 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
         orden.setStatus(true);
         orden.setOrdenItems(productoList);
 
-        mDatabase.child(ordenKey).setValue(orden);
+        mDatabase.child(ordenKey).setValue(orden).addOnCompleteListener(this);
         //mDatabase.child(ordenKey).child("items").push();
         //mDatabase.push().setValue(producto);
     }
@@ -286,5 +291,27 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
                 //Toast.makeText(this, "ButtonAdder 8 "+num8, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        if(task.isSuccessful()){
+//            Intent intent = new Intent(AddToInventario.this, MainActivity.class);
+//            startActivity(intent);
+            Toast.makeText(AgregarOrden.this, "Orden añadida con éxito..", Toast.LENGTH_SHORT).show();
+        }else{
+            String message = task.getException().toString();
+            Toast.makeText(AgregarOrden.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        mesaString = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
