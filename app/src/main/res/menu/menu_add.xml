@@ -5,7 +5,6 @@
     <item
         android:id="@+id/itemUsers"
         android:title="@string/icUser"
-        app:showAsAction="never"
         />
     <item
         android:id="@+id/itemProducts"

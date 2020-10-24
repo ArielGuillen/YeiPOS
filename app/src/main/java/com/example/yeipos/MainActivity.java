@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-        myToolBar = (Toolbar) findViewById(R.id.topAppBar);
         setSupportActionBar(myToolBar);
         myToolBar.setNavigationOnClickListener(myClickListener);
     }
