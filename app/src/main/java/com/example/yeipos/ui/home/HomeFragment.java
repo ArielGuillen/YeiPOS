@@ -1,11 +1,14 @@
 package com.example.yeipos.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yeipos.AgregarOrden;
 import com.example.yeipos.R;
 import com.example.yeipos.interfaces.ItemClickListener;
+import com.example.yeipos.interfaces.OnClickListenerOrdenItem;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.OrderCardViewHome;
@@ -34,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class HomeFragment extends Fragment implements ItemClickListener {
+public class HomeFragment extends Fragment {
     ArrayList<OrderCardViewHome> ordenCards = new ArrayList<>();
     private OrdenesCardAdapter mAdapter;
 
@@ -157,25 +161,39 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                         adapter2.notifyDataSetChanged();
                         holder.rowItemRecycler.setAdapter(adapter2);
 
-                        //holder.listV.setAdapter((ListAdapter) model.getOrdenItems());
-//                        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                String id = model.getId();
-//                                inventarioRef.child("inventario").child(id).removeValue();
-//                                Toast.makeText(getActivity(),"Producto eliminado",Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                        holder.mEditImage.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                String id = model.getId();
-//                                Intent intent = new Intent(getActivity(), ModificarInventario.class);
-//                                intent.putExtra("message", id);
-//                                startActivity(intent);
-//                            }
-//                        });
+                        holder.editar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(getActivity(), "Editado click", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                        holder.terminar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                //Toast.makeText(getActivity(), "Orden Terminada", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                                alerta.setMessage("Esta seguro que desea terminar la orden")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                getActivity().finish();
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                AlertDialog titulo = alerta.create();
+                                titulo.setTitle("Orden");
+                                titulo.show();
+                            }
+                        });
                     }
+
                     @NonNull
                     @Override
                     public OrdenesCardAdapter.ViewHolderOrden onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -195,16 +213,5 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-
-    @Override
-    public void onDeleteClick(View view, int position) {
-
-    }
-
-    @Override
-    public void onEditClick(View view, int position) {
-
     }
 }

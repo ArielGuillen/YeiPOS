@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yeipos.R;
 import com.example.yeipos.interfaces.ItemClickListener;
+import com.example.yeipos.interfaces.OnClickListenerOrdenItem;
 import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.OrderCardViewHome;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -49,13 +50,14 @@ public class OrdenesCardAdapter extends RecyclerView.Adapter<OrdenesCardAdapter.
         return orderCardViewHomeItems.size();
     }
 
-    public static class ViewHolderOrden extends  RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolderOrden extends  RecyclerView.ViewHolder{
         public TextView textViewMesa, textViewFecha;
         public Button terminar, editar;
-        public ItemClickListener mListener;
 
         public RecyclerView rowItemRecycler;
         public RecyclerView.LayoutManager manager;
+
+        public OnClickListenerOrdenItem listener;
 
         public ViewHolderOrden(View itemView) {
             super(itemView);
@@ -70,38 +72,37 @@ public class OrdenesCardAdapter extends RecyclerView.Adapter<OrdenesCardAdapter.
             rowItemRecycler.setLayoutManager(manager);
 
             //-------------------------CLICKS-------------------------------------
-            terminar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            mListener.onDeleteClick(view, position);
-                        }
-                    }
-                }
-            });
-            editar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            mListener.onDeleteClick(view, position);
-                        }
-                    }
-                }
-            });
+//            terminar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (listener != null) {
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            listener.onTerminarClick(view, position);
+//                        }
+//                    }
+//                }
+//            });
+//            editar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (listener != null) {
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            listener.onEditarClick(view, position);
+//                        }
+//                    }
+//                }
+//            });
         }
-
-        public void ItemClickListener(ItemClickListener mListener){
-            this.mListener = mListener;
-        }
-        @Override
-        public void onClick(View view) {
-            mListener.onDeleteClick(view,getAdapterPosition());
-            mListener.onEditClick(view,getAdapterPosition());
-        }
+//        public void ItemClickListener(ItemClickListener mListener){
+//            this.mListener = mListener;
+//        }
+//        @Override
+//        public void onClick(View view) {
+//            mListener.onDeleteClick(view,getAdapterPosition());
+//            mListener.onEditClick(view,getAdapterPosition());
+//        }
     }
 
 }
