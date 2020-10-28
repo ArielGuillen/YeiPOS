@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ModificarInventario"></activity>
-        <activity android:name=".AddToInventario" />
+        <activity android:name=".AddToInventario"/>
         <activity
             android:name=".AgregarOrden"
             android:parentActivityName=".MainActivity" />

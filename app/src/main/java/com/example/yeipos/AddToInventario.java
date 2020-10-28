@@ -2,6 +2,7 @@ package com.example.yeipos;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -55,6 +56,16 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
         inputCantidadProd = (EditText) findViewById(R.id.txt_cantidadProd);
         inputPrecioProd = (EditText) findViewById(R.id.txt_precioProducto);
         spinnerCategoria = (Spinner) findViewById(R.id.spinner_categoria);
+
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.addInventarioToolBar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //get seleccion del spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -147,9 +158,8 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful()){
-//            Intent intent = new Intent(AddToInventario.this, MainActivity.class);
-//            startActivity(intent);
             Toast.makeText(AddToInventario.this, "Producto añadido exitosamente..", Toast.LENGTH_SHORT).show();
+            finish();
         }else{
             String message = task.getException().toString();
             Toast.makeText(AddToInventario.this, "Error: " + message, Toast.LENGTH_SHORT).show();

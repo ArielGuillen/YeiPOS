@@ -9,11 +9,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yeipos.R;
 import com.example.yeipos.interfaces.ItemClickListener;
+import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.OrderCardViewHome;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -46,17 +52,24 @@ public class OrdenesCardAdapter extends RecyclerView.Adapter<OrdenesCardAdapter.
     public static class ViewHolderOrden extends  RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView textViewMesa, textViewFecha;
         public Button terminar, editar;
-        public ListView listV;
         public ItemClickListener mListener;
+
+        public RecyclerView rowItemRecycler;
+        public RecyclerView.LayoutManager manager;
 
         public ViewHolderOrden(View itemView) {
             super(itemView);
             textViewFecha = itemView.findViewById(R.id.txt_hora_card);
             textViewMesa = itemView.findViewById(R.id.txt_mesa_card);
-            listV = itemView.findViewById(R.id.list_orden_items);
 
             terminar = itemView.findViewById(R.id.terminar_boton);
             editar = itemView.findViewById(R.id.editar_boton);
+
+            manager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.VERTICAL, false);
+            rowItemRecycler = itemView.findViewById(R.id.recycler_orden_item);
+            rowItemRecycler.setLayoutManager(manager);
+
+            //-------------------------CLICKS-------------------------------------
             terminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

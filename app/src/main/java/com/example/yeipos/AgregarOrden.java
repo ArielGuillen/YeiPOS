@@ -3,8 +3,10 @@ package com.example.yeipos;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,11 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.Producto;
+import com.example.yeipos.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;;
@@ -31,7 +36,14 @@ import java.util.Calendar;
 
 public class AgregarOrden extends AppCompatActivity implements ElegantNumberButton.OnClickListener, OnCompleteListener<Void>, AdapterView.OnItemSelectedListener {
     private String mesaString = "";
-    private int num1,num2,num3,num4,num5,num6,num7,num8;
+    private int num1;
+    private int num2;
+    private int num3;
+    private int num4;
+    private int num5;
+    private int num6;
+    private int num7;
+    private int num8;
     private Spinner mesasDropdown;
     private Button addOrderButton,  comidasDropButton, bebidasDropButton;
     private ElegantNumberButton  button1, button2, button3, button4,button5, button6, button7, button8;
@@ -132,6 +144,8 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
                     validarDatosOrden();
             }
         });
+
+
     }
 
     public void comidasBClicked(LinearLayout layoutComidas){
@@ -189,6 +203,7 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
         orden.setDate(GuardarFecha);
         orden.setTime(GuardarHora);
         orden.setStatus(true);
+        orden.setKeyID(ordenKey);
         orden.setOrdenItems(productoList);
 
         mDatabase.child(ordenKey).setValue(orden).addOnCompleteListener(this);
@@ -199,7 +214,7 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
     private void addProductsToList(){
         //Log.d("MYARRAY", " arr: "+ Arrays.toString(cantidades));
         for(Producto item: productoListDefault){
-            if(item.getCantidad()!=0){
+            if( Integer.parseInt(item.getCantidad()) != 0){
                 productoList.add(item);
             }
         }
@@ -209,50 +224,50 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
     private void addProductDefault(){
         producto1 = new Producto();
         producto1.setNombre(platillo1.getText().toString());
-        producto1.setCantidad(num1);
-        producto1.setPrecio(0.0);
+        producto1.setCantidad(Integer.toString(num1));
+        producto1.setPrecio(Double.toString(0.0));
         productoListDefault.add(producto1);
 
         producto2 = new Producto();
         producto2.setNombre(platillo2.getText().toString());
-        producto2.setCantidad(num2);
-        producto2.setPrecio(0.0);
+        producto2.setCantidad(String.valueOf(num2));
+        producto2.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto2);
 
         producto3 = new Producto();
         producto3.setNombre(platillo3.getText().toString());
-        producto3.setCantidad(num3);
-        producto3.setPrecio(0.0);
+        producto3.setCantidad(String.valueOf(num3));
+        producto3.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto3);
 
         producto4 = new Producto();
         producto4.setNombre(platillo4.getText().toString());
-        producto4.setCantidad(num4);
-        producto4.setPrecio(0.0);
+        producto4.setCantidad(String.valueOf(num4));
+        producto4.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto4);
 
         producto5 = new Producto();
         producto5.setNombre(bebida1.getText().toString());
-        producto5.setCantidad(num1);
-        producto5.setPrecio(0.0);
+        producto5.setCantidad(String.valueOf(num1));
+        producto5.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto5);
 
         producto6 = new Producto();
         producto6.setNombre(bebida2.getText().toString());
-        producto6.setCantidad(num6);
-        producto6.setPrecio(0.0);
+        producto6.setCantidad(String.valueOf(num6));
+        producto6.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto6);
 
         producto7 = new Producto();
         producto7.setNombre(bebida3.getText().toString());
-        producto7.setCantidad(num7);
-        producto7.setPrecio(0.0);
+        producto7.setCantidad(String.valueOf(num7));
+        producto7.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto7);
 
         producto8 = new Producto();
         producto8.setNombre(bebida4.getText().toString());
-        producto8.setCantidad(num8);
-        producto8.setPrecio(0.0);
+        producto8.setCantidad(String.valueOf(num8));
+        producto8.setPrecio(String.valueOf(0.0));
         productoListDefault.add(producto8);
     }
     @Override
@@ -296,9 +311,8 @@ public class AgregarOrden extends AppCompatActivity implements ElegantNumberButt
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful()){
-//            Intent intent = new Intent(AddToInventario.this, MainActivity.class);
-//            startActivity(intent);
             Toast.makeText(AgregarOrden.this, "Orden añadida con éxito..", Toast.LENGTH_SHORT).show();
+            finish();
         }else{
             String message = task.getException().toString();
             Toast.makeText(AgregarOrden.this, "Error: " + message, Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ public class Orden {
     private String numMesa, total, date, time;
     private Boolean status;
     private ArrayList<Producto> ordenItems;
+    private String keyID;
 
     public Orden(){ }
 
@@ -60,6 +61,14 @@ public class Orden {
 
     public ArrayList<Producto> getOrdenItems() {
         return ordenItems;
+    }
+
+    public String getKeyID() {
+        return keyID;
+    }
+
+    public void setKeyID(String keyID) {
+        this.keyID = keyID;
     }
 
     public void setOrdenItems(ArrayList<Producto> ordenItems) {

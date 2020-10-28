@@ -2,12 +2,12 @@ package com.example.yeipos.model;
 
 public class Producto {
     private String nombre;
-    private double precio;
-    private int cantidad;
+    private String precio;
+    private String cantidad;
 
     public Producto(){}
 
-    public Producto(String nombre, int cantidad, double precio){
+    public Producto(String nombre, String cantidad, String precio){
         this.nombre = nombre;
         this.precio = precio;
     }
@@ -20,19 +20,19 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
-    public int getCantidad() {
+    public String getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
 }

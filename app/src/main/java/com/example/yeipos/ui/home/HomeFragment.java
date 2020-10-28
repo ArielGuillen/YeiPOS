@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +17,12 @@ import com.example.yeipos.AgregarOrden;
 import com.example.yeipos.R;
 import com.example.yeipos.interfaces.ItemClickListener;
 import com.example.yeipos.model.Orden;
+import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.OrderCardViewHome;
 import com.example.yeipos.viewHolder.OrdenesCardAdapter;
+import com.example.yeipos.viewHolder.ProductViewHolder;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,12 +36,16 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements ItemClickListener {
     ArrayList<OrderCardViewHome> ordenCards = new ArrayList<>();
-    private RecyclerView mRecyclerView;
     private OrdenesCardAdapter mAdapter;
+
+    private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseReference ordenesRef;
+    private FirebaseRecyclerAdapter adapter;
 
-    private HomeViewModel homeViewModel;
+    //private DatabaseReference dbRefItems = FirebaseDatabase.getInstance().getReference().child("orden").child("ordenItems");
+    private FirebaseRecyclerAdapter adapter2;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,6 +58,8 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        poblarFirebaseRecycler();
 
         FloatingActionButton fab = root.findViewById(R.id.fabOrdenes);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -108,22 +119,45 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 //        });
 //    }
 
-    public void onStart() {
-        super.onStart();
-
+    private void poblarFirebaseRecycler() {
+        //        FirebaseListAdapter
         FirebaseRecyclerOptions<Orden> options =
                 new FirebaseRecyclerOptions.Builder<Orden>()
                         .setQuery(ordenesRef.child("orden"), Orden.class)
                         .build();
 
-        FirebaseRecyclerAdapter adapter =
+        adapter =
                 new FirebaseRecyclerAdapter<Orden, OrdenesCardAdapter.ViewHolderOrden>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull OrdenesCardAdapter.ViewHolderOrden holder,
                                                     int position, @NonNull final Orden model) {
                         holder.textViewMesa.setText(model.getNumMesa());
                         holder.textViewFecha.setText(model.getTime());
-                        //holder.listV = ArrayAdapter
+
+                        FirebaseRecyclerOptions<OrdenItem> options2 =
+                                new FirebaseRecyclerOptions.Builder<OrdenItem>()
+                                        .setQuery(ordenesRef.child("orden").child(model.getKeyID()).child("ordenItems"), OrdenItem.class)
+                                        .build();
+                        adapter2=new FirebaseRecyclerAdapter<OrdenItem, ProductViewHolder>(options2){
+                                    @NonNull
+                                    @Override
+                                    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                        //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.orden_row_items, parent, false);
+                                        View v2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.orden_row_items,parent,false);
+                                        return new ProductViewHolder(v2);
+                                    }
+
+                                    @Override
+                                    protected void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int position, @NonNull OrdenItem ordenItem) {
+                                        productViewHolder.txtProductName.setText(ordenItem.getNombre());
+                                        productViewHolder.txtProductCantidad.setText(ordenItem.getCantidad());
+                                    }
+                                };
+                        adapter2.startListening();
+                        adapter2.notifyDataSetChanged();
+                        holder.rowItemRecycler.setAdapter(adapter2);
+
+                        //holder.listV.setAdapter((ListAdapter) model.getOrdenItems());
 //                        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
 //                            @Override
 //                            public void onClick(View view) {
@@ -151,8 +185,18 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                     }
                 };
         mRecyclerView.setAdapter(adapter);
+    }
+
+    public void onStart() {
+        super.onStart();
         adapter.startListening();
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
 
     @Override
     public void onDeleteClick(View view, int position) {
