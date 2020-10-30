@@ -20,18 +20,18 @@
 
 
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+<!--    <string name="first_fragment_label">First Fragment</string>-->
+<!--    <string name="second_fragment_label">Second Fragment</string>-->
+<!--    <string name="next">Next</string>-->
+<!--    <string name="previous">Previous</string>-->
 
 
-    <!-- Strings Agregar  Usuarios-->
+<!--    &lt;!&ndash; Strings Agregar  Usuarios&ndash;&gt;-->
     <string name="title_activity_add">Agregar Usuario</string>
-    <string name="addUser">Agregar Usuario</string>
-    <string name="addNUser">Nombre</string>
-    <string name="addUserEmail">Correo Electrónico</string>
-    <string name="confirmpass">Confirmar Contraseña</string>
+<!--    <string name="addUser">Agregar Usuario</string>-->
+<!--    <string name="addNUser">Nombre</string>-->
+<!--    <string name="addUserEmail">Correo Electrónico</string>-->
+<!--    <string name="confirmpass">Confirmar Contraseña</string>-->
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -47,4 +47,19 @@
         <item>bebidas</item>
         <item>otros</item>
     </string-array>
+
+    <string-array name="mesas">
+        <item>Seleccionar mesa</item>
+        <item>Mesa 1</item>
+        <item>Mesa 2</item>
+        <item>Mesa 3</item>
+        <item>Mesa 4</item>
+    </string-array>
+
+    <!--Terminar orden-->
+    <string name="nombrePlatillo">Nombre</string>
+    <string name="cantidadPlatillo">Cantidad</string>
+    <string name="precioPlatillo">Precio</string>
+    <string name="totalOrden">Total</string>
+
 </resources>

@@ -85,9 +85,6 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
                 validarDatos();
             }
         });
-
-        //navController = Navigation.findNavController();
-
     }
 
     private void validarDatos() {
@@ -127,19 +124,15 @@ public class AddToInventario extends AppCompatActivity implements AdapterView.On
         //Log.i("categoria ", itemInventario.getCategoria());
         switch (categoria){
             case "comidas":
-                productoReference.child("inventario").child(id).setValue(itemInventario);
                 productoReference.child("comidas").child(id).setValue(itemInventario).addOnCompleteListener(this);
-                //productoReference.child("comidas").push().setValue(itemInventario).addOnCompleteListener(this);
-                //Log.i("comida: ",itemInventario.toString());
+                productoReference.child("inventario").child(id).setValue(itemInventario).addOnCompleteListener(this);
                 break;
             case "bebidas":
-                productoReference.child("inventario").child(id).setValue(itemInventario);
                 productoReference.child("bebidas").child(id).setValue(itemInventario).addOnCompleteListener(this);
-                //Log.i("bebida: ",itemInventario.toString());
+                productoReference.child("inventario").child(id).setValue(itemInventario).addOnCompleteListener(this);
                 break;
             case "otros":
                 productoReference.child("inventario").child(id).setValue(itemInventario).addOnCompleteListener(this);
-                //Log.i("otro: ",itemInventario.toString());
                 break;
         }
 

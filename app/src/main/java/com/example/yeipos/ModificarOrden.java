@@ -1,46 +1,41 @@
 package com.example.yeipos;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.yeipos.model.Comidas;
+import com.example.yeipos.model.ItemInventario;
 import com.example.yeipos.model.Mesas;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.Producto;
-import com.example.yeipos.ui.home.HomeFragment;
 import com.example.yeipos.viewHolder.BebidasViewHolder;
 import com.example.yeipos.viewHolder.ComidasViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -50,57 +45,82 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class AgregarOrden extends AppCompatActivity implements OnCompleteListener<Void>, View.OnClickListener {
-    private ListView listViewMesas;
-    private final List<Mesas> listMesas = new ArrayList<Mesas>();
+public class ModificarOrden extends AppCompatActivity implements View.OnClickListener,com.google.android.gms.tasks.OnCompleteListener<Void> {
+    private String intentMessage;
+    ListView listViewMesas;
+
+    private List<Mesas> listMesas = new ArrayList<Mesas>();
     ArrayAdapter<Mesas> arrayAdapterMesas;
 
     DatabaseReference databaseReference;
     private FirebaseRecyclerAdapter adapter, adapter2;
     private RecyclerView recyclerViewComidas, recyclerViewBebidas;
+    private RecyclerView.LayoutManager mLayoutManager, mLayoutManager2;
 
-    private Button mesasDropButton;
+    private Button addOrderButton,  comidasDropButton, bebidasDropButton, mesasDropButton;
     boolean comidasVisible = false,  bebidasVisible = false, mesasVisible = false;
     Mesas mesasSelectedObj;
-    String mesaSeleccionada;
+    String mesaSeleccionada, numMesa;
     String nombreDePlatilloEnOrden,nombreDePlatilloEnOrden2, num;
+
     private ArrayList<Producto> productoList;
     private HashMap<String, String> cantidadesComidas, cantidadesBebidas, precioPlatillos;
+
+    private Orden orden;
+    private String nombre;
+    private String cantidad;
+    private String precio;
+    private String guardarFecha;
+    private String guardarHora;
+    private String categoria;
+    private String id, oldStringKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_orden);
+        setContentView(R.layout.activity_modificar_orden);
+        try {
+            intentMessage = getIntent().getStringExtra("message");
+            numMesa = getIntent().getStringExtra("numMesa");
+            guardarFecha = getIntent().getStringExtra("fecha");
+            guardarHora = getIntent().getStringExtra("hora");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.addOrdenToolBar);
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.adminOrdenToolBar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         productoList = new ArrayList<>();
-        cantidadesComidas = new HashMap<>();
-        cantidadesBebidas = new HashMap<>();
-        precioPlatillos = new HashMap<>();
+        cantidadesComidas = new HashMap<String, String>();
+        cantidadesBebidas = new HashMap<String, String>();
+        precioPlatillos = new HashMap<String, String>();
 
         //----------------BOTONES FINDED
         mesasDropButton = findViewById(R.id.mesas_button);
-        Button comidasDropButton = findViewById(R.id.comidas_button);
-        Button bebidasDropButton = findViewById(R.id.bebidas_button);
-        Button addOrderButton = findViewById(R.id.add_button_order);
+        comidasDropButton = findViewById(R.id.comidas_button_mod);
+        bebidasDropButton = findViewById(R.id.bebidas_button_mod);
+        addOrderButton = findViewById(R.id.modificar_button_order);
 
         //---------------RECYCLERVIEW COMIDAS
         recyclerViewComidas = findViewById(R.id.comidas_recycler);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(this);
         recyclerViewComidas.setHasFixedSize(true);
         recyclerViewComidas.setLayoutManager(mLayoutManager);
         recyclerViewComidas.setVisibility(View.GONE);
 
         //---------------RECYCLERVIEW BEBIDAS
         recyclerViewBebidas = findViewById(R.id.bebidas_recycler);
-        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(this);
+        mLayoutManager2 = new LinearLayoutManager(this);
         recyclerViewBebidas.setHasFixedSize(true);
         recyclerViewBebidas.setLayoutManager(mLayoutManager2);
         recyclerViewBebidas.setVisibility(View.GONE);
+
+        //---------------DESABILITAR BOTON Y PONER EL TEXTO DE LA MESA CORRESPONDIENTE A LA ORDEN
+        mesasDropButton.setText(numMesa);
+        mesasDropButton.setEnabled(false);
 
         //---------------LISTVIEW MESAS
         listViewMesas = findViewById(R.id.list_mesas);
@@ -123,7 +143,7 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
                 mesasSelectedObj = (Mesas) parent.getItemAtPosition(position);
                 mesaSeleccionada = mesasSelectedObj.getNumMesa();
                 //Log.i("MESA_SELECCIONADA", mesaSeleccionada);
-                Toast.makeText(AgregarOrden.this, "Mesa "+mesaSeleccionada+" seleccionada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModificarOrden.this, "Mesa "+mesaSeleccionada+" seleccionada", Toast.LENGTH_SHORT).show();
                 mesasDropButton.setText(mesaSeleccionada);
                 listViewMesas.setVisibility(View.GONE);
                 mesasVisible = false;
@@ -141,11 +161,12 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
                         Mesas m = objSnapshot.getValue(Mesas.class);
                         listMesas.add(m);
                         //Log.d("mensaje",listMesas.toString());
-                        arrayAdapterMesas = new ArrayAdapter<>(AgregarOrden.this, android.R.layout.simple_list_item_1, listMesas);
+                        arrayAdapterMesas = new ArrayAdapter<>(ModificarOrden.this, android.R.layout.simple_list_item_1, listMesas);
                         listViewMesas.setAdapter(arrayAdapterMesas);
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -170,7 +191,7 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
             protected void onBindViewHolder(@NonNull final ComidasViewHolder holder,
                                             final int position, @NonNull final Comidas model) {
                 holder.txtNombre.setText(model.getNombre());
-                databaseReference.child("orden").child(model.getId()).child("ordenItems").addValueEventListener(new ValueEventListener() {
+                databaseReference.child("orden").child(intentMessage).child("ordenItems").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
@@ -192,9 +213,14 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
                     public void onClick(View view) {
                         num = holder.elegantNumberButton.getNumber();
                         cantidadesComidas.put(model.getNombre(), num);
+//                        Log.i("NUMERO-COUNTER-COMIDAS", num);
+//                        Log.i("CONFIRMACION", confirmacionDeBotonModificar.toString());
+                        //Log.i("CANTIDADES-COMIDAS", cantidadesComidas.toString());
                     }
                 });
                 precioPlatillos.put(model.getNombre(), model.getPrecio());
+//                Log.i("CONFIRMACION2", confirmacionDeBotonModificar.toString());
+//                Log.i("CANTIDADES-COMIDAS", cantidadesComidas.toString());
             }
         };
         recyclerViewComidas.setAdapter(adapter);
@@ -215,7 +241,7 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
             @Override
             protected void onBindViewHolder(@NonNull final BebidasViewHolder holder, int position, @NonNull final Comidas model) {
                 holder.txtNombre.setText(model.getNombre());
-                databaseReference.child("orden").child(model.getId()).child("ordenItems").addValueEventListener(new ValueEventListener() {
+                databaseReference.child("orden").child(intentMessage).child("ordenItems").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
@@ -237,6 +263,7 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
                     public void onClick(View view) {
                         num = holder.elegantNumberButton.getNumber();
                         cantidadesBebidas.put(model.getNombre(),num);
+                        //Log.i("CANTIDADES-BEBIDAS", cantidadesBebidas.toString());
                     }
                 });
                 precioPlatillos.put(model.getNombre(), model.getPrecio());
@@ -252,13 +279,13 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
             case R.id.mesas_button:
                 changeMesasVisibilityState();
                 break;
-            case R.id.comidas_button:
+            case R.id.comidas_button_mod:
                 changeComidasVisibilityState();
                 break;
-            case R.id.bebidas_button:
+            case R.id.bebidas_button_mod:
                 changeBebidasVisibilityState();
                 break;
-            case R.id.add_button_order:
+            case R.id.modificar_button_order:
                 validarDatos();
                 break;
         }
@@ -266,6 +293,9 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
 
     private void validarDatos() {
         addProductsToList();
+//        Log.i("PRODUCTOS-AGREGADO", productoList.toString());
+//        Log.i("CANTIDADES-COMIDAS", cantidadesComidas.toString());
+//        Log.i("PRECIOS-COMIDAS",precioPlatillos.toString());
         GuardarInformacionProducto();
     }
 
@@ -298,33 +328,32 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
     }
 
     private void GuardarInformacionProducto() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
-        String guardarFecha = currentDate.format(calendar.getTime());
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        String guardarHora = currentTime.format(calendar.getTime());
-        String id = guardarFecha + guardarHora;
+//        Calendar calendar = Calendar.getInstance();
+//        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
+//        guardarFecha = currentDate.format(calendar.getTime());
+//        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+//        guardarHora = currentTime.format(calendar.getTime());
+//        id = guardarFecha+guardarHora;
 
-        Orden orden = new Orden();
-        orden.setNumMesa(mesaSeleccionada);
+        orden = new Orden();
+        orden.setNumMesa(numMesa);
         orden.setDate(guardarFecha);
         orden.setTime(guardarHora);
         orden.setStatus(true);
-        orden.setKeyID(id);
+        orden.setKeyID(intentMessage);
         orden.setOrdenItems(productoList);
-        orden.setTotal("0.0");
 
-        databaseReference.child("orden").child(id).setValue(orden).addOnCompleteListener(this);
+        databaseReference.child("orden").child(intentMessage).setValue(orden).addOnCompleteListener(this);
     }
 
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful()){
-            Toast.makeText(AgregarOrden.this, "Orden agregada exitosamente!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModificarOrden.this, "Orden actualizada exitosamente..", Toast.LENGTH_SHORT).show();
             finish();
         }else{
             String message = task.getException().toString();
-            Toast.makeText(AgregarOrden.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModificarOrden.this, "Error: " + message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -369,7 +398,6 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
         }
     }
 
-    @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
