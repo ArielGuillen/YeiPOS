@@ -14,4 +14,6 @@
     <color name="colorSecondaryLight">#d1d9ff</color>
 
     <color name="colorBackground">#FFFFFF</color>
+    <color name="textoColorNormal">#000000</color>
+
 </resources>

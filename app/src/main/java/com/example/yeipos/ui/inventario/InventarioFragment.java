@@ -1,5 +1,6 @@
 package com.example.yeipos.ui.inventario;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yeipos.AddToInventario;
 import com.example.yeipos.ModificarInventario;
 import com.example.yeipos.R;
+import com.example.yeipos.TerminarOrden;
 import com.example.yeipos.interfaces.ItemClickListener;
 import com.example.yeipos.model.CardItem;
 import com.example.yeipos.model.ItemInventario;
@@ -23,6 +25,7 @@ import com.example.yeipos.viewHolder.InventarioCardAdapter;
 import com.example.yeipos.viewHolder.InventarioCardAdapterV2;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -146,9 +149,26 @@ public class InventarioFragment extends Fragment implements ItemClickListener {
                         holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String id = model.getId();
-                                inventarioRef.child("inventario").child(id).removeValue();
-                                Toast.makeText(getActivity(),"Producto eliminado",Toast.LENGTH_SHORT).show();
+                                MaterialAlertDialogBuilder alerta = new MaterialAlertDialogBuilder(getActivity());
+                                alerta.setTitle("Alerta");
+                                alerta.setMessage("¿Esta seguro que desea eliminar del inventario?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                String id = model.getId();
+                                                inventarioRef.child("inventario").child(id).removeValue();
+                                                //inventarioRef.child(model.getCategoria()).child(id).removeValue();
+                                                Toast.makeText(getActivity(),"Producto eliminado",Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                alerta.show();
                             }
                         });
                         holder.mEditImage.setOnClickListener(new View.OnClickListener() {

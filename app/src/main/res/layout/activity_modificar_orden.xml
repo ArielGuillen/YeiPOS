@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modificar_orden"
+    tools:context=".ModificarOrden"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/adminOrdenAappBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +20,78 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="Administrar orden"></com.google.android.material.appbar.MaterialToolbar>
+            app:title="Administrar orden"/>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/adminOrdenAappBar"
+        app:layout_constraintBottom_toTopOf="@+id/modificar_button_order">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mesas_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mesas"
+            android:textAlignment="textStart"
+            style="?attr/materialButtonOutlinedStyle"
+            app:icon="@drawable/ic_baseline_arrow_drop_down_24"
+            app:iconGravity="end"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"/>
+
+        <ListView
+            android:id="@+id/list_mesas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/comidas_button_mod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comidas"
+            android:textAlignment="textStart"
+            style="?attr/materialButtonOutlinedStyle"
+            app:icon="@drawable/ic_baseline_arrow_drop_down_24"
+            app:iconGravity="end"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comidas_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bebidas_button_mod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bebidas"
+            android:textAlignment="textStart"
+            style="?attr/materialButtonOutlinedStyle"
+            app:icon="@drawable/ic_baseline_arrow_drop_down_24"
+            app:iconGravity="end"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bebidas_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/modificar_button_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="Modificar"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

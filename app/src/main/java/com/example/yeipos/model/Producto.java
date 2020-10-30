@@ -35,4 +35,13 @@ public class Producto {
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "nombre='" + nombre + '\'' +
+                ", precio='" + precio + '\'' +
+                ", cantidad='" + cantidad + '\'' +
+                '}';
+    }
 }

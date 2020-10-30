@@ -152,13 +152,34 @@ public class ModificarInventario extends AppCompatActivity implements AdapterVie
         itemInventario.setId(id);
         itemInventario.setPrecio(precio);
 
-        productoReference.child("inventario").child(itemInventario.getId()).setValue(itemInventario).addOnCompleteListener(this);
+        //productoReference.child("inventario").child(itemInventario.getId()).setValue(itemInventario).addOnCompleteListener(this);
+        switch (categoria){
+            case "comidas":
+                productoReference.child("comidas").child(id).setValue(itemInventario).addOnCompleteListener(this);
+                productoReference.child("comidas").child(oldStringKey).removeValue();
+                productoReference.child("inventario").child(id).setValue(itemInventario);
+                productoReference.child("inventareio").child(oldStringKey).removeValue();
+                //productoReference.child("comidas").push().setValue(itemInventario).addOnCompleteListener(this);
+                //Log.i("comida: ",itemInventario.toString());
+                break;
+            case "bebidas":
+                productoReference.child("bebidas").child(id).setValue(itemInventario).addOnCompleteListener(this);
+                productoReference.child("bebidas").child(oldStringKey).removeValue();
+                productoReference.child("inventario").child(id).setValue(itemInventario);
+                productoReference.child("inventareio").child(oldStringKey).removeValue();
+                //Log.i("bebida: ",itemInventario.toString());
+                break;
+            case "otros":
+                productoReference.child("inventario").child(id).setValue(itemInventario).addOnCompleteListener(this);
+                productoReference.child("inventareio").child(oldStringKey).removeValue();
+                //Log.i("otro: ",itemInventario.toString());
+                break;
+        }
     }
 
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful()){
-            productoReference.child("inventario").child(oldStringKey).removeValue();
             Intent intent = new Intent(ModificarInventario.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(ModificarInventario.this, "Producto actualizado exitosamente..", Toast.LENGTH_SHORT).show();

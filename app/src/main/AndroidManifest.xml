@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".modificar_orden"></activity>
+        <activity android:name=".TerminarOrden"></activity>
+        <activity android:name=".ModificarOrden" />
         <activity android:name=".ModificarInventario" />
         <activity android:name=".AddToInventario" />
         <activity

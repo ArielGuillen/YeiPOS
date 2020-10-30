@@ -1,14 +1,11 @@
 package com.example.yeipos.ui.home;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,23 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yeipos.AgregarOrden;
+import com.example.yeipos.ModificarOrden;
 import com.example.yeipos.R;
-import com.example.yeipos.interfaces.ItemClickListener;
-import com.example.yeipos.interfaces.OnClickListenerOrdenItem;
+import com.example.yeipos.TerminarOrden;
 import com.example.yeipos.model.Orden;
 import com.example.yeipos.model.OrdenItem;
 import com.example.yeipos.model.OrderCardViewHome;
 import com.example.yeipos.viewHolder.OrdenesCardAdapter;
 import com.example.yeipos.viewHolder.ProductViewHolder;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -43,7 +37,6 @@ public class HomeFragment extends Fragment {
     private OrdenesCardAdapter mAdapter;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseReference ordenesRef;
     private FirebaseRecyclerAdapter adapter;
 
@@ -59,7 +52,7 @@ public class HomeFragment extends Fragment {
         ordenesRef = FirebaseDatabase.getInstance().getReference();
 
         mRecyclerView = root.findViewById(R.id.recycler_home);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -164,21 +157,35 @@ public class HomeFragment extends Fragment {
                         holder.editar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(getActivity(), "Editado click", Toast.LENGTH_SHORT).show();
-
+                                //Toast.makeText(getActivity(), "Editado click", Toast.LENGTH_SHORT).show();
+                                String id = model.getKeyID();
+                                String numMesa = model.getNumMesa();
+                                String fecha = model.getDate();
+                                String hora = model.getTime();
+                                Intent intent = new Intent(getActivity(), ModificarOrden.class);
+                                intent.putExtra("message", id);
+                                intent.putExtra("numMesa", numMesa);
+                                intent.putExtra("fecha", fecha);
+                                intent.putExtra("hora", hora);
+                                startActivity(intent);
                             }
                         });
                         holder.terminar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 //Toast.makeText(getActivity(), "Orden Terminada", Toast.LENGTH_SHORT).show();
-                                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
-                                alerta.setMessage("Esta seguro que desea terminar la orden")
+                               MaterialAlertDialogBuilder alerta = new MaterialAlertDialogBuilder(getActivity());
+                               alerta.setTitle("Alerta");
+                               alerta.setMessage("¿Esta seguro que desea terminar la orden?")
                                         .setCancelable(false)
                                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                getActivity().finish();
+                                                //getActivity().finish();
+                                                String id = model.getKeyID();
+                                                Intent intent = new Intent(getActivity(), TerminarOrden.class);
+                                                intent.putExtra("message", id);
+                                                startActivity(intent);
                                             }
                                         })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -187,9 +194,7 @@ public class HomeFragment extends Fragment {
                                                 dialogInterface.cancel();
                                             }
                                         });
-                                AlertDialog titulo = alerta.create();
-                                titulo.setTitle("Orden");
-                                titulo.show();
+                                alerta.show();
                             }
                         });
                     }
