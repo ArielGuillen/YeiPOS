@@ -3,17 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/itemUsers"
+        android:id="@+id/itemHelp"
+        android:title="@string/icHelp"
+        android:icon="@drawable/ic_help_outline"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/itemAboutUs"
         android:title="@string/icUser"
-        />
-    <item
-        android:id="@+id/itemProducts"
-        android:title="@string/icProd"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/itemVentas"
-        android:title="@string/ventas"
         app:showAsAction="never"
         />
 </menu>

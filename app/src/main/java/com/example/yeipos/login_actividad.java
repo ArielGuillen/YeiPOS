@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.yeipos.users.Administrar;
 import com.example.yeipos.users.AgregarUsuarios;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,9 +55,10 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(login_actividad.this, Administrar.class);
+                                Intent intent = new Intent(login_actividad.this, MainActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(login_actividad.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                                finish();
 
                             } else {
                                 Toast.makeText(login_actividad.this, "No se pudo iniciar sesión",

@@ -16,6 +16,7 @@
     <!-- Strings Registro de Ventas-->
     <string name="icUser">Usuarios</string>
     <string name="icProd">Productos</string>
+    <string name="icHelp">Ayuda</string>
 
 
     <!-- Strings used for fragments for navigation -->

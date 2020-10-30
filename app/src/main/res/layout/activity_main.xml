@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_menu_24"
-            app:title="YeiPOS" />
+            app:title="YeiPOS"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
