@@ -17,7 +17,7 @@ import java.util.ArrayList;
 //Esta clase es para ser usada con una peticion a firebase normal
 //con los metodos getFromFirebase y buildRecyclerView de la clase InventarioFragment
 public class InventarioCardAdapter extends RecyclerView.Adapter<InventarioCardAdapter.ExampleViewHolder> {
-    ArrayList<CardItem> mCardItemsList;;
+    ArrayList<CardItem> mCardItemsList;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {

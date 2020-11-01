@@ -63,6 +63,18 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
                             } else {
                                 Toast.makeText(login_actividad.this, "No se pudo iniciar sesión",
                                         Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder alert = new AlertDialog.Builder( login_actividad.this );
+                                alert.setMessage("VErifique los campos Correo y Contraseña")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog titulo = alert.create();
+                                titulo.setTitle("Datos Incorrectos");
+                                titulo.show();
                             }
 
                         }

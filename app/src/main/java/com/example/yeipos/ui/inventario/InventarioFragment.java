@@ -121,7 +121,7 @@ public class InventarioFragment extends Fragment implements ItemClickListener {
 
     @Override
     public void onDeleteClick(View view, int position) {
-        Toast.makeText(getActivity(), "deletiado", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "eliminado", Toast.LENGTH_SHORT).show();
     }
 
     @Override

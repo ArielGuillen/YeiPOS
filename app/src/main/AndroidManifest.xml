@@ -11,14 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TerminarOrden"></activity>
+        <activity android:name=".AboutUs"/>
+        <activity android:name=".Ayuda" />
+        <activity android:name=".TerminarOrden" />
         <activity android:name=".ModificarOrden" />
         <activity android:name=".ModificarInventario" />
         <activity android:name=".AddToInventario" />
         <activity
-            android:name=".AgregarOrden"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".login_actividad"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +27,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AgregarOrden"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity" />
+        <activity
             android:name=".users.AgregarUsuarios"
-            android:label="@string/title_activity_add" />
+            android:label="@string/title_activity_add"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"

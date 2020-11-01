@@ -9,8 +9,7 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/itemAboutUs"
-        android:title="@string/icUser"
-        app:showAsAction="never"
+        android:id="@+id/itemRegVent"
+        android:title="@string/icReg"
         />
 </menu>

@@ -31,8 +31,8 @@ public class RegistroDeVentas extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_registro_de_ventas);
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+            //Toolbar toolbar = findViewById(R.id.toolbar);
+            //setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
             lineChartView = findViewById(R.id.chart);

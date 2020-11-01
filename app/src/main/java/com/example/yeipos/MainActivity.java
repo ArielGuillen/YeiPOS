@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu ( Menu menu ) {
         getMenuInflater().inflate(R.menu.menu_add, menu);
+
         return true;
     }
     @SuppressLint("NonConstantResourceId")
@@ -78,10 +81,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch ( menuItem.getItemId() ){
             case R.id.itemHelp:
-                this.setTitle( R.string.icHelp);
+                intent = new Intent(MainActivity.this, Ayuda.class );
+                startActivity( intent );
                 break;
-            case R.id.itemAboutUs:
-                this.setTitle( R.string.icProd);
+            case R.id.itemRegVent:
+                intent = new Intent(MainActivity.this, RegistroDeVentas.class );
+                startActivity( intent );
                 break;
              case android.R.id.home:
                 intent = new Intent(MainActivity.this, MainActivity.class );

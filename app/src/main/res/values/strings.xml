@@ -17,21 +17,23 @@
     <string name="icUser">Usuarios</string>
     <string name="icProd">Productos</string>
     <string name="icHelp">Ayuda</string>
+    <string name="icReg">Registro de Ventas</string>
+    <string name="icAbout">Acerca de Nosotros</string>
 
 
     <!-- Strings used for fragments for navigation -->
-<!--    <string name="first_fragment_label">First Fragment</string>-->
-<!--    <string name="second_fragment_label">Second Fragment</string>-->
-<!--    <string name="next">Next</string>-->
-<!--    <string name="previous">Previous</string>-->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
 
-<!--    &lt;!&ndash; Strings Agregar  Usuarios&ndash;&gt;-->
+    <!--    &lt;!&ndash; Strings Agregar  Usuarios&ndash;&gt;-->
     <string name="title_activity_add">Agregar Usuario</string>
-<!--    <string name="addUser">Agregar Usuario</string>-->
-<!--    <string name="addNUser">Nombre</string>-->
-<!--    <string name="addUserEmail">Correo Electrónico</string>-->
-<!--    <string name="confirmpass">Confirmar Contraseña</string>-->
+    <string name="addUser">Agregar Usuario</string>
+    <string name="addNUser">Nombre</string>
+    <string name="addUserEmail">Correo Electrónico</string>
+    <string name="confirmpass">Confirmar Contraseña</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -61,5 +63,17 @@
     <string name="cantidadPlatillo">Cantidad</string>
     <string name="precioPlatillo">Precio</string>
     <string name="totalOrden">Total</string>
+
+    <!--Ayuda-->
+
+    <string name="pregFrec">Preguntas Frecuentes</string>
+    <string name="preg1">¿Cómo hacer una orden?</string>
+    <string name="p1">-> Iniciar Sesión en la aplicación</string>
+    <string name="p2">-> Presionar el botón + en la parte inferior de la pantalla</string>
+    <string name="p3">-> Seleccionar mesa de la lista despegable </string>
+    <string name="p4">-> Desplegar las listas para seleccionar la cantidad de platillos y bebidas </string>
+    <string name="p5">-> Presionar el botón de "Agregar"</string>
+    <string name="p6">-> Confirmar orden</string>
+
 
 </resources>

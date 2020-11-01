@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,9 +20,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yeipos.AboutUs;
+import com.example.yeipos.Ayuda;
 import com.example.yeipos.MainActivity;
 import com.example.yeipos.R;
 import com.example.yeipos.RegistroDeVentas;
+import com.example.yeipos.interfaces.ItemClickListener;
 import com.example.yeipos.users.AgregarUsuarios;
 import com.example.yeipos.users.ListElement;
 import com.example.yeipos.viewholders.AdapterUsuario;
@@ -34,12 +38,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AdministrarFragment extends Fragment {
+public class AdministrarFragment extends Fragment implements AdapterUsuario.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private AdapterUsuario adaptador;
     AppCompatActivity activity;
-    Toolbar toolbar;
 
     private boolean user = true;
     private ArrayList<ListElement> elements;
@@ -49,12 +52,8 @@ public class AdministrarFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_administrar, container, false);
 
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.topAppBar);
         activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setTitle("Administrar usuarios");
-        //setHasOptionsMenu(true);
         recyclerView = root.findViewById( R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager( getActivity() ) );
@@ -109,31 +108,16 @@ public class AdministrarFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
     }
+
     @Override
-    public void onCreateOptionsMenu(@Nullable Menu menu, MenuInflater inflater) {
-        inflater.inflate( R.menu.menu_add, menu );
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onDeleteClick(int position) {
+        Toast.makeText(getActivity(), "eliminado", Toast.LENGTH_SHORT).show();
+
     }
 
-//    @SuppressLint("NonConstantResourceId")
-//    public boolean onOptionsItemSelected(MenuItem menuItem ){
-//        Intent intent;
-//        switch ( menuItem.getItemId() ){
-//            case R.id.itemUsers:
-//                activity.setTitle( R.string.icUser);
-//                break;
-//            case R.id.itemProducts:
-//                activity.setTitle( R.string.icProd);
-//                break;
-//            case R.id.itemVentas:
-//                intent = new Intent(activity, RegistroDeVentas.class);
-//                startActivity(intent);
-//                break;
-//            case android.R.id.home:
-//                intent = new Intent(activity, MainActivity.class );
-//                startActivity( intent );
-//                break;
-//        }
-//        return true;
-//    }
+    @Override
+    public void onEditClick(int position) {
+        Toast.makeText(getActivity(), "editado", Toast.LENGTH_SHORT).show();
+
+    }
 }
