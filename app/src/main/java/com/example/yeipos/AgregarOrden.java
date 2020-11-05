@@ -75,7 +75,12 @@ public class AgregarOrden extends AppCompatActivity implements OnCompleteListene
         Toolbar mToolBar = (Toolbar) findViewById(R.id.addOrdenToolBar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         databaseReference = FirebaseDatabase.getInstance().getReference();
         productoList = new ArrayList<>();
         cantidadesComidas = new HashMap<>();

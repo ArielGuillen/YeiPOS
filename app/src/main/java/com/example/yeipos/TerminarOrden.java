@@ -61,6 +61,12 @@ public class TerminarOrden extends AppCompatActivity implements OnCompleteListen
         Toolbar mToolBar = findViewById(R.id.terminarOrdenToolBar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_terminar_orden);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

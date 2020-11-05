@@ -91,6 +91,12 @@ public class ModificarOrden extends AppCompatActivity implements View.OnClickLis
         Toolbar mToolBar = (Toolbar) findViewById(R.id.adminOrdenToolBar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         productoList = new ArrayList<>();

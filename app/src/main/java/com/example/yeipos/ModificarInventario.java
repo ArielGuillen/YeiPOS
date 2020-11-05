@@ -2,6 +2,7 @@ package com.example.yeipos;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +57,16 @@ public class ModificarInventario extends AppCompatActivity implements AdapterVie
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.addInventarioToolBar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         productoReference = FirebaseDatabase.getInstance().getReference();
 
