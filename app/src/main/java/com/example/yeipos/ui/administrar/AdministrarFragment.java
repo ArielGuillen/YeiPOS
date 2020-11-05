@@ -97,12 +97,15 @@ public class AdministrarFragment extends Fragment {
                 if( snapshot.exists() ){
                     for (DataSnapshot dataS : snapshot.getChildren()) {
                         Log.e("Datos: ", "" + dataS.getValue());
+
+                        String id = String.valueOf( dataS.child("id").getValue() );
                         String user = String.valueOf( dataS.child("name").getValue() );
-                        String mail = String.valueOf( dataS.child("correo").getValue() );
+                        String mail = String.valueOf( dataS.child("email").getValue() );
                         String psw = String.valueOf( dataS.child("passw").getValue() );
+
                         Log.e("Nombre: ", "" + user );
                         Log.e("Email: ", "" + mail );
-                        elements.add(new ListElement(user, mail, psw ));
+                        elements.add(new ListElement( id, user, mail, psw ));
                     }
                 }
                 adaptador = new AdapterUsuario( elements );
@@ -161,11 +164,15 @@ public class AdministrarFragment extends Fragment {
     }*/
     
     public void editItem( int position ){
+        String id = elements.get(position).getId();
         String name = elements.get(position).getName();
         String email = elements.get(position).getEmail();
+        String pswd = elements.get(position).getPassword();
         Intent intent = new Intent( getContext(), AgregarUsuarios.class);
+        intent.putExtra("id",id );
         intent.putExtra("name",name );
-        intent.putExtra("email", email );
+        intent.putExtra("email",email );
+        intent.putExtra("pswd", pswd );
         startActivity(intent);
     }
     public void removeItem(final int position ){

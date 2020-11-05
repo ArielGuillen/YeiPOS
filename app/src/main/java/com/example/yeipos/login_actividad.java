@@ -108,6 +108,10 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
     public boolean validaCamposVacios(){
         String c = String.valueOf( txtCorreo.getText() ).trim();
         String p = String.valueOf( txtPassword.getText() ).trim();
+        if( c.isEmpty() )
+            txtCorreo.setError( "Requerido");
+        if( p.isEmpty() )
+            txtPassword.setError( "Requerido");
         if( !c.isEmpty() && !p.isEmpty()  )
             return true;
         else

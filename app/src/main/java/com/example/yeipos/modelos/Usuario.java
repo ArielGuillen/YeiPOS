@@ -1,6 +1,8 @@
 package com.example.yeipos.modelos;
 
 public class Usuario {
+
+    String id;
     String name;
     String correo;
     String passw;

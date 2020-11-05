@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AgregarUsuarios extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,8 +43,12 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
     private TextView txtAddEmail;
     private TextView txtAddPsw1;
     private TextView txtAddPsw2;
+
     private boolean edit;
     private String changeName;
+    private String changeId;
+    private String changePsw;
+    private String changeEmail;
 
     public FirebaseAuth mAuth;
     public ProgressDialog progressDialog;
@@ -58,15 +64,19 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
         txtAddEmail = findViewById(R.id.txtAddUserEmail);
         txtAddPsw1 = findViewById(R.id.txtAddPassword);
         txtAddPsw2 = findViewById(R.id.txtConfirmPassword);
+
         //Obtener valores de modificación
-        changeName = getIntent().getStringExtra("name");
-        if ( changeName != null ) {
-            txtAddUserN.setText(changeName);
+        changeId = getIntent().getStringExtra("id");
+        changePsw = getIntent().getStringExtra("pswd");
+        if ( changeId != null ) {
             edit = true;
         }
-        String email = getIntent().getStringExtra("email");
-        if ( email != null )
-            txtAddEmail.setText(email);
+        changeName = getIntent().getStringExtra("name");
+        if ( changeName != null )
+            txtAddUserN.setText(changeName);
+        changeEmail = getIntent().getStringExtra("email");
+        if ( changeEmail != null )
+            txtAddEmail.setText(changeEmail);
 
         if ( edit ){
             buttonAddUser.setText( R.string.actUser );
@@ -89,7 +99,7 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
                 if (psw1.length() > 5){
                     if (psw1.equals(psw2)) {
                         final String uName = String.valueOf(txtAddUserN.getText()).trim();
-                        final String email = String.valueOf(txtAddEmail.getText()).trim();
+                        final String email = String.valueOf(txtAddEmail.getText()).trim().toLowerCase();
 
                         mAuth.createUserWithEmailAndPassword(email, psw1)
                                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -99,8 +109,10 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
 
                                             Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario, inicie sesión para continuar", Toast.LENGTH_LONG).show();
                                             DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
-                                            Usuario usuario = new Usuario(uName, email, psw1);
-                                            prodReference.child("usuario").child(uName).setValue(usuario);
+                                            String id = UUID.randomUUID().toString();
+                                            ListElement usuario = new ListElement( id,uName, email, psw1);
+
+                                            prodReference.child("usuario").child(id).setValue(usuario);
                                             Intent intent = new Intent(AgregarUsuarios.this, login_actividad.class);
                                             startActivity(intent);
                                         }
@@ -167,11 +179,19 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
         final String email = String.valueOf(txtAddEmail.getText()).trim();
             if( !uName.isEmpty() && !email.isEmpty() ) {
                 final DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference().child("usuario");
-                dbReference.child(changeName).child("name").setValue(uName);
-                dbReference.child(changeName).child("correo").setValue(email);
-                Toast.makeText(AgregarUsuarios.this, "Se han actualizado datos del usuario", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AgregarUsuarios.this, MainActivity.class);
-                startActivity(intent);
+                dbReference.child(changeId).child("name").setValue(uName);
+                dbReference.child(changeId).child("email").setValue(email);
+
+                mAuth.signInWithEmailAndPassword( changeEmail, changePsw );
+                FirebaseUser user = mAuth.getCurrentUser();
+                user.updateEmail( email ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(AgregarUsuarios.this, "Se han actualizado datos del usuario", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AgregarUsuarios.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
         }
         else{
             AlertDialog.Builder alert = new AlertDialog.Builder( AgregarUsuarios.this );
@@ -199,11 +219,18 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
     public boolean validaCamposVacios(){
 
         String [] campos = new String[4];
-        campos[0] = txtAddPsw2.getText().toString();
+        campos[0] = txtAddUserN.getText().toString();
         campos[1] = txtAddEmail.getText().toString();
         campos[2] = txtAddPsw1.getText().toString();
-        campos[3] = txtAddUserN.getText().toString();
-
+        campos[3] = txtAddPsw2.getText().toString();
+        if ( campos[0].isEmpty() )
+            txtAddUserN.setError("Requerido");
+        if ( campos[1].isEmpty() )
+            txtAddEmail.setError("Requerido");
+        if ( campos[2].isEmpty() )
+            txtAddPsw1.setError("Requerido");
+        if ( campos[3].isEmpty() )
+            txtAddPsw2.setError("Requerido");
         return !campos[0].equals("") && !campos[1].equals("") && !campos[2].equals("") && !campos[3].equals("");
 
     }
