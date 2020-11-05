@@ -6,21 +6,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yeipos.MainActivity;
 import com.example.yeipos.R;
+import com.example.yeipos.login_actividad;
 import com.example.yeipos.modelos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AgregarUsuarios extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,7 +41,8 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
     private TextView txtAddEmail;
     private TextView txtAddPsw1;
     private TextView txtAddPsw2;
-    
+    private boolean edit;
+    private String changeName;
 
     public FirebaseAuth mAuth;
     public ProgressDialog progressDialog;
@@ -39,24 +52,33 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_usuarios);
         this.setTitle(R.string.addUser);
-
+        edit = false;
         buttonAddUser = findViewById(R.id.buttonAddUser);
         txtAddUserN = findViewById(R.id.txtAddUserN);
         txtAddEmail = findViewById(R.id.txtAddUserEmail);
         txtAddPsw1 = findViewById(R.id.txtAddPassword);
         txtAddPsw2 = findViewById(R.id.txtConfirmPassword);
-
-        mAuth = FirebaseAuth.getInstance();
-
         //Obtener valores de modificación
-        String name = getIntent().getStringExtra("name");
-        if ( name != null)
-            txtAddUserN.setText(name);
+        changeName = getIntent().getStringExtra("name");
+        if ( changeName != null ) {
+            txtAddUserN.setText(changeName);
+            edit = true;
+        }
         String email = getIntent().getStringExtra("email");
-        if ( email != null)
+        if ( email != null )
             txtAddEmail.setText(email);
 
-        buttonAddUser.setOnClickListener( this);
+        if ( edit ){
+            buttonAddUser.setText( R.string.actUser );
+            TextInputLayout layout1 = findViewById( R.id.layouttext );
+            TextInputLayout layout2 = findViewById( R.id.layouttext2 );
+            layout1.setVisibility( View.GONE );
+            layout2.setVisibility( View.GONE );
+        }
+        mAuth = FirebaseAuth.getInstance();
+
+
+        buttonAddUser.setOnClickListener( this );
     }
     
         public void registrarUsuario( ) {
@@ -75,10 +97,12 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario, inicie sesión para continuar", Toast.LENGTH_LONG).show();
                                             DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
                                             Usuario usuario = new Usuario(uName, email, psw1);
                                             prodReference.child("usuario").child(uName).setValue(usuario);
+                                            Intent intent = new Intent(AgregarUsuarios.this, login_actividad.class);
+                                            startActivity(intent);
                                         }
                                         else {
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException)
@@ -137,9 +161,39 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
             }
         }
 
+
+    public void editarUsuario( ) {
+        final String uName = String.valueOf(txtAddUserN.getText()).trim();
+        final String email = String.valueOf(txtAddEmail.getText()).trim();
+            if( !uName.isEmpty() && !email.isEmpty() ) {
+                final DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference().child("usuario");
+                dbReference.child(changeName).child("name").setValue(uName);
+                dbReference.child(changeName).child("correo").setValue(email);
+                Toast.makeText(AgregarUsuarios.this, "Se han actualizado datos del usuario", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AgregarUsuarios.this, MainActivity.class);
+                startActivity(intent);
+        }
+        else{
+            AlertDialog.Builder alert = new AlertDialog.Builder( AgregarUsuarios.this );
+            alert.setMessage("Debe llenar todos los campos")
+                    .setCancelable(false)
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog titulo = alert.create();
+            titulo.setTitle("Campos Vacíos");
+            titulo.show();
+        }
+    }
     @Override
     public void onClick( View view ){
-        registrarUsuario();
+        if( edit )
+            editarUsuario();
+        else
+            registrarUsuario();
     }
 
     public boolean validaCamposVacios(){

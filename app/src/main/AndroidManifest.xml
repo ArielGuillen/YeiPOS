@@ -30,7 +30,7 @@
         <activity
             android:name=".AgregarOrden"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".users.AgregarUsuarios"
             android:label="@string/title_activity_add"

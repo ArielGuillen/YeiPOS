@@ -19,12 +19,20 @@ import java.util.ArrayList;
 public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.ViewHolder>{
 
     public ArrayList<ListElement> lista;
+    private AdapterUsuario.OnItemClickListener mListener;
+
+    public void setOnItemClickListener( OnItemClickListener listener ){
+        mListener = listener;
+    }
 
     public AdapterUsuario(ArrayList<ListElement> lista) {
         this.lista = lista;
     }
 
+
+    //-----------------------------Interface--------------------------
     public interface OnItemClickListener {
+        void onItemLongClick( int position );
         void onDeleteClick(int position);
         void onEditClick(int position);
     }
@@ -35,7 +43,7 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from( parent.getContext() ).inflate( R.layout.list_element, parent, false );
-        ViewHolder viewH = new ViewHolder( v );
+        ViewHolder viewH = new ViewHolder( v, mListener );
         return viewH;
     }
 
@@ -44,17 +52,18 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.ViewHold
         ListElement element = lista.get( position );
         holder.nombre.setText( element.getName() );
         holder.correo.setText( element.getEmail() );
-
     }
-
 
     @Override
     public int getItemCount() {
         return lista.size();
     }
 
+
+
     //------------------------------Clase --------------------------------------------
-    public static class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nombre;
         TextView correo;
@@ -63,44 +72,56 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.ViewHold
         public ItemClickListener mListener;
 
 
-        public ViewHolder(@NonNull View itemView ) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener ) {
+
             super(itemView);
+
             nombre = itemView.findViewById( R.id.userTextviewName );
             correo = itemView.findViewById( R.id.userTextviewEmail );
             btnEdit = itemView.findViewById( R.id.userEdit );
             btnDel = itemView.findViewById( R.id.userDelete );
 
-            btnEdit.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    if (mListener != null) {
+                public boolean onLongClick(View v) {
+                    if( listener != null ){
                         int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            mListener.onEditClick(view, position);
+                        if( position != RecyclerView.NO_POSITION ){
+                            listener.onItemLongClick( position );
                         }
                     }
+                    return true;
                 }
             });
+
             btnDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mListener != null) {
+                    if( listener != null ){
+                        int position = getAdapterPosition();
+                        if( position != RecyclerView.NO_POSITION ){
+                            listener.onDeleteClick( position );
+                        }
+                    }
+                }
+            });
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if ( listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            mListener.onDeleteClick(view, position);
+                            listener.onEditClick( position );
                         }
                     }
                 }
             });
         }
+
         public void ItemClickListener(ItemClickListener mListener){
             this.mListener = mListener;
         }
-        @Override
-        public void onClick(View view) {
-            mListener.onDeleteClick(view,getAdapterPosition());
-            mListener.onEditClick(view,getAdapterPosition());
-        }
+
     }
 
 }

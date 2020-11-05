@@ -1,6 +1,8 @@
 package com.example.yeipos.ui.administrar;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +28,17 @@ import com.example.yeipos.MainActivity;
 import com.example.yeipos.R;
 import com.example.yeipos.RegistroDeVentas;
 import com.example.yeipos.interfaces.ItemClickListener;
+import com.example.yeipos.login_actividad;
 import com.example.yeipos.users.AgregarUsuarios;
 import com.example.yeipos.users.ListElement;
 import com.example.yeipos.viewholders.AdapterUsuario;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,22 +47,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AdministrarFragment extends Fragment implements AdapterUsuario.OnItemClickListener {
+public class AdministrarFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AdapterUsuario adaptador;
+    private DatabaseReference dbReference;
+
     AppCompatActivity activity;
 
-    private boolean user = true;
+    private final boolean user = true;
     private ArrayList<ListElement> elements;
+
+    public AdministrarFragment() {
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_administrar, container, false);
-
-
+        dbReference = FirebaseDatabase.getInstance().getReference();
         activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setTitle("Administrar usuarios");
+        activity.getSupportActionBar().setTitle(R.string.adminUsr);
         recyclerView = root.findViewById( R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager( getActivity() ) );
@@ -76,10 +90,8 @@ public class AdministrarFragment extends Fragment implements AdapterUsuario.OnIt
     }
 
     private void loadList() {
-
-        elements = new ArrayList<ListElement>();
-        final DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
-        prodReference.child("usuario").addValueEventListener(new ValueEventListener() {
+        elements = new ArrayList<>();
+        dbReference.child("usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if( snapshot.exists() ){
@@ -87,13 +99,30 @@ public class AdministrarFragment extends Fragment implements AdapterUsuario.OnIt
                         Log.e("Datos: ", "" + dataS.getValue());
                         String user = String.valueOf( dataS.child("name").getValue() );
                         String mail = String.valueOf( dataS.child("correo").getValue() );
+                        String psw = String.valueOf( dataS.child("passw").getValue() );
                         Log.e("Nombre: ", "" + user );
                         Log.e("Email: ", "" + mail );
-                        elements.add(new ListElement(user, mail));
+                        elements.add(new ListElement(user, mail, psw ));
                     }
                 }
                 adaptador = new AdapterUsuario( elements );
                 recyclerView.setAdapter( adaptador );
+                adaptador.setOnItemClickListener(new AdapterUsuario.OnItemClickListener() {
+                    @Override
+                    public void onItemLongClick(int position) {
+                        longClick( position );
+                    }
+
+                    @Override
+                    public void onDeleteClick(int position) {
+                        removeItem( position );
+                    }
+
+                    @Override
+                    public void onEditClick(int position) {
+                        editItem( position ) ;
+                    }
+                });
 
             }
 
@@ -109,15 +138,62 @@ public class AdministrarFragment extends Fragment implements AdapterUsuario.OnIt
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onDeleteClick(int position) {
-        Toast.makeText(getActivity(), "eliminado", Toast.LENGTH_SHORT).show();
 
+    public void longClick( int position ){
+        ListElement element = elements.get( position );
+        AlertDialog.Builder alert = new AlertDialog.Builder( getContext() );
+        alert.setMessage(" -Nombre: " + element.getName()
+                        + "\n -Correo Eletrónico: "+ element.getEmail() )
+                .setCancelable(false)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog titulo = alert.create();
+        titulo.setTitle("Información de Usuario");
+        titulo.show();
     }
-
-    @Override
-    public void onEditClick(int position) {
-        Toast.makeText(getActivity(), "editado", Toast.LENGTH_SHORT).show();
-
+    /*public void prueba( int position, String s){
+        elements.get(position).setName( s );
+        adaptador.notifyItemChanged( position );
+    }*/
+    
+    public void editItem( int position ){
+        String name = elements.get(position).getName();
+        String email = elements.get(position).getEmail();
+        Intent intent = new Intent( getContext(), AgregarUsuarios.class);
+        intent.putExtra("name",name );
+        intent.putExtra("email", email );
+        startActivity(intent);
+    }
+    public void removeItem(final int position ){
+        final ListElement element = elements.get( position );
+        AlertDialog.Builder alert = new AlertDialog.Builder( getContext() );
+        alert.setMessage(" ¿Desea eliminar el usuario " +elements.get( position ).getName() +"?" )
+                .setCancelable(false)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        mAuth.signInWithEmailAndPassword(element.getEmail(), element.getPassword() );
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if( user != null ) {
+                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    dbReference.child("usuario").child(elements.get(position).name).removeValue();
+                                    elements.remove(position);
+                                    adaptador.notifyItemRemoved(position);
+                                    Toast.makeText(getContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                });
+        AlertDialog titulo = alert.create();
+        titulo.setTitle("Confirmar eliminación");
+        titulo.show();
     }
 }
