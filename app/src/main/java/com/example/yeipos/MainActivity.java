@@ -19,6 +19,8 @@ import com.example.yeipos.ui.home.HomeFragment;
 import com.example.yeipos.ui.inventario.InventarioFragment;
 import com.example.yeipos.ui.administrar.AdministrarFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
