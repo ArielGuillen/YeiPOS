@@ -9,10 +9,6 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/itemRegVent"
-        android:title="@string/icReg"
-        />
-    <item
         android:id="@+id/itemRegOrden"
         android:title="Ordenes terminadas"
         />

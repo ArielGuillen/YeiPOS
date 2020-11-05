@@ -85,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, Ayuda.class );
                 startActivity( intent );
                 break;
-            case R.id.itemRegVent:
-                intent = new Intent(MainActivity.this, RegistroDeVentas.class );
-                startActivity( intent );
-                break;
             case R.id.itemRegOrden:
                 intent = new Intent(MainActivity.this, RegistroDeOrdenesTerminadas.class);
                 startActivity(intent);

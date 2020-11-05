@@ -34,10 +34,6 @@ public class AboutUs extends AppCompatActivity {
                 intent = new Intent(AboutUs.this, Ayuda.class );
                 startActivity( intent );
                 break;
-            case R.id.itemRegVent:
-                intent = new Intent(AboutUs.this, RegistroDeVentas.class );
-                startActivity( intent );
-                break;
             case android.R.id.home:
                 intent = new Intent(AboutUs.this, MainActivity.class );
                 startActivity( intent );

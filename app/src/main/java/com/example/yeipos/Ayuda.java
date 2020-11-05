@@ -36,10 +36,6 @@ public class Ayuda extends AppCompatActivity {
                 intent = new Intent(Ayuda.this, Ayuda.class );
                 startActivity( intent );
                 break;
-            case R.id.itemRegVent:
-                intent = new Intent(Ayuda.this, RegistroDeVentas.class );
-                startActivity( intent );
-                break;
             case android.R.id.home:
                 intent = new Intent(Ayuda.this, MainActivity.class );
                 startActivity( intent );

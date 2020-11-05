@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">YeiPOS</string>
 
@@ -78,6 +79,18 @@
     <string name="p4">-> Desplegar las listas para seleccionar la cantidad de platillos y bebidas </string>
     <string name="p5">-> Presionar el botón de "Agregar"</string>
     <string name="p6">-> Confirmar orden</string>
+    
+    <string name="titulo2">Agregar una orden</string>
+    <string name="ayuda2">Dirigase a la pantalla principal, en la sección de <b>Ordenes.</b>
+        Podrá ver el listado de ordenes activas, si no es asi, presione el icono con forma de casa
+        en la parte inferior izquierda de la pantalla.
+        Ahora presione el boton circular azul con una con el símbolo <b>"+"</b>.
+        Se abrira una nueva pantalla en la cual podra:
+        <br>Elegir la mesa a la que pertenece la orden.</br>
+        Escoger el alimento y la cantidad del mismo.
+        Escoger las bebidas y cantidad de las mismas.
+        Una vez seleccionado, presionar el boton de <b>Agregar</b>.
+    </string>
 
 
 </resources>
