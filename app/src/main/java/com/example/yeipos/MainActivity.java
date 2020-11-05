@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu ( Menu menu ) {
         getMenuInflater().inflate(R.menu.menu_add, menu);
-
         return true;
     }
     @SuppressLint("NonConstantResourceId")
@@ -88,7 +87,11 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, RegistroDeVentas.class );
                 startActivity( intent );
                 break;
-             case android.R.id.home:
+            case R.id.itemRegOrden:
+                intent = new Intent(MainActivity.this, RegistroDeOrdenesTerminadas.class);
+                startActivity(intent);
+                break;
+            case android.R.id.home:
                 intent = new Intent(MainActivity.this, MainActivity.class );
                 startActivity( intent );
                 break;

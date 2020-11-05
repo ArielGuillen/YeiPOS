@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutUs"/>
+        <activity android:name=".RegistroDeOrdenesTerminadas"></activity>
+        <activity android:name=".AboutUs" />
         <activity android:name=".Ayuda" />
         <activity android:name=".TerminarOrden" />
         <activity android:name=".ModificarOrden" />
