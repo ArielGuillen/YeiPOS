@@ -40,6 +40,10 @@ public class Ayuda extends AppCompatActivity {
                 intent = new Intent(Ayuda.this, MainActivity.class );
                 startActivity( intent );
                 break;
+            case R.id.itemRegOrden:
+                intent = new Intent(Ayuda.this, RegistroDeOrdenesTerminadas.class);
+                startActivity(intent);
+                break;
         }
         return true;
     }

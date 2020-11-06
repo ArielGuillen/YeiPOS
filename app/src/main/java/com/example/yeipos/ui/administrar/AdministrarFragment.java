@@ -179,7 +179,6 @@ public class AdministrarFragment extends Fragment {
         final ListElement element = elements.get( position );
         AlertDialog.Builder alert = new AlertDialog.Builder( getContext() );
         alert.setMessage(" ¿Desea eliminar el usuario " +elements.get( position ).getName() +"?" )
-                .setCancelable(false)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -190,7 +189,7 @@ public class AdministrarFragment extends Fragment {
                             user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    dbReference.child("usuario").child(elements.get(position).name).removeValue();
+                                    dbReference.child("usuario").child(elements.get( position ).getId() ).removeValue();
                                     elements.remove(position);
                                     adaptador.notifyItemRemoved(position);
                                     Toast.makeText(getContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show();

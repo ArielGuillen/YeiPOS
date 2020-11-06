@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
     EditText txtCorreo, txtPassword;
     TextView txtPsw;
     String email, psw;
+    ImageView imagehelp;
     private String correoR;
 
     private FirebaseAuth mAuth;
@@ -40,12 +42,13 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
         this.txtCorreo = findViewById( R.id.txtUserMail );
         this.txtPassword = findViewById( R.id.txtPassword );
         this.txtPsw = findViewById( R.id.txtOPassword );
-
+        this.imagehelp = findViewById( R.id.imagehelp );
         mAuth = FirebaseAuth.getInstance();
 
         this.buttonLogin.setOnClickListener( this) ;
         this.buttonSignin.setOnClickListener( this );
         this.txtPsw.setOnClickListener( this );
+        this.imagehelp.setOnClickListener( this );
     }
 
     public void loginUser(){
@@ -62,6 +65,7 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Intent intent = new Intent(login_actividad.this, MainActivity.class);
+                                intent.putExtra("login","login" );
                                 startActivity(intent);
                                 Toast.makeText(login_actividad.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                                 finish();
@@ -129,6 +133,10 @@ public class login_actividad extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.buttonSignin:
                 Intent intent = new Intent(login_actividad.this, AgregarUsuarios.class);
+                startActivity(intent);
+                break;
+            case R.id.imagehelp:
+                intent = new Intent(login_actividad.this, Ayuda.class);
                 startActivity(intent);
                 break;
         }

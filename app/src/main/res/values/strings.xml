@@ -74,37 +74,81 @@
     <string name="pregFrec"><b>Ayuda</b></string>
 
     <string name="titulo1">Agregar una orden</string>
-    <string name="ayuda1">Inicie sesión en la aplicación. Diríjase a la pantalla principal, en la sección de <b>Ordenes.</b>
-        Podrá ver el listado de ordenes activas, si no es asi, presione el icono con forma de casa
-        en la parte inferior izquierda de la pantalla.
-        Ahora presione el botón circular azul con una con el símbolo <b>"+"</b>.
-        Se abrirá una nueva pantalla en la cual podrá:
-        <br>Elegir la mesa a la que pertenece la orden.</br>
-        Escoger el alimento y la cantidad de este.
-        Escoger las bebidas y cantidad de estas.
-        Una vez seleccionado, presionar el botón <b>"Agregar"</b>.
+    <string name="ayuda1">-Inicie sesión en la aplicación.
+        <br>-Diríjase a la pantalla principal, en la sección de <b>Ordenes.</b></br>
+        <br>-Podrá ver el listado de ordenes activas.</br>
+        <br>-Ahora presione el botón circular azul con una con el símbolo <b>"+"</b>.</br>
+        <br>-Se abrirá una nueva pantalla en la cual podrá:</br>
+        <br>-Elegir la mesa a la que pertenece la orden.</br>
+        <br>-Escoger el alimento y la cantidad de este.</br>
+        <br>-Escoger las bebidas y cantidad de estas.</br>
+        <br>-Una vez seleccionado, presionar el botón <b>"Agregar"</b>.</br>
     </string>
 
-    <string name="titulo2">¿Cómo editar una orden?</string>
-    <string name="ayuda2">Iniciar Sesión en la aplicación
-        <br>Presionar el botón <b>"Editar"</b> en la orden correspondiente.</br>
-        <br>Desplegar las listas para seleccionar la cantidad de platillos y bebidas.
+    <string name="titulo2"><br />¿Cómo editar una orden?</string>
+    <string name="ayuda2">-Iniciar Sesión en la aplicación.
+        <br>-Presionar el botón <b>"Editar"</b> en la orden correspondiente.</br>
+        <br>-Desplegar las listas para seleccionar la cantidad de platillos y bebidas.
             Puede mostrar estas listas mediante los botones
             de <b>"Comidas"</b> y <b>"Bebidas"</b>
         </br>
-        <br>Presionar el botón de <b>"Modificar"</b>.</br>
-        Confirmar orden.
+        <br>-Presionar el botón de <b>"Modificar"</b>.</br>
+        -Confirmar orden.
     </string>
 
-    <string name="titulo3">¿Cómo terminar una orden?</string>
-    <string name="ayuda3">Iniciar Sesión en la aplicación
-        <br>Presionar el botón <b>"Terminar"</b> en la orden correspondiente.</br>
-        <br>Aparecerá una advertencia para terminar la orden o no.</br>
-        <br>Si presiona <b>"Si"</b> se mostrará una nueva pantalla. La cual mostrara los platillos
-            ordenados y el costo, además del total de la cuenta.
-        </br>
-        <br>Por ultimo presionar el botón de <b>"Finalizar"</b>.</br>
+    <string name="titulo3"><br />¿Cómo terminar una orden?</string>
+    <string name="ayuda3">-Iniciar Sesión en la aplicación.
+        <br>-Presionar el botón <b>"Terminar"</b> en la orden correspondiente.</br>
+        <br>-Aparecerá una advertencia para terminar la orden o no.</br>
+        <br>-Si presiona <b>"Si"</b> se mostrará una nueva pantalla. La cual mostrara los platillos
+            ordenados y el costo, además del total de la cuenta.</br>
+        <br>-Por ultimo presionar el botón de <b>"Finalizar"</b>.</br>
     </string>
 
+    <string name="titulo4"><br />¿Cómo crear un usuario?</string>
+    <string name="ayuda4">Hay dos maneras de agregar un usuario, ya sea registrándose para acceder por primera vez
+        o dentro de la aplicación desde la vista de administrar usuarios para crear un nuevo registro.
+        <br />
+        <br><b>Iniciar sesión por primera vez</b></br>
+    </string>
+    <string name="ayuda4_1">
+        <br>-Debe abrir la aplicación y presionar el botón <b>Registrarse</b>.</br>
+        <br>-Lo llevará a otra ventana donde deberá ingresar los datos solicitados.</br>
+        <br>-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.</br>
+        <br>-La contraseña solicitada deberá contener un mínimo de 6 caracteres.</br>
+        <br>-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear su cuenta de acceso.</br>
+        <br>-Finalmente le mostrará la pantalla para iniciar sesión donde podrá acceder a la aplicación, para ello deberá introducir el correo electrónico y la contraseña que registró previamente.</br>
+    </string>
+    <string name="ayuda4_2">
+        <br><b>Crear usuario desde la vista administrador</b></br>
+    </string>
+    <string name="ayuda4_2_1">
+        <br>-Inicie sesión en la aplicación.</br>
+        <br>-Lo llevará a la ventana principal donde podrá visualizar la barra de navegación en la parte inferior. Aquí deberá seleccionar el ícono de administrar.</br>
+        <br>-Se le mostrará una lista de los usuarios registrados actualmente en la aplicación.</br>
+        <br>-Deberá presionar el botón circular con el ícono <b>+</b> en la parte inferior de la pantalla.</br>
+        <br>-Lo llevará a la ventana donde podrá crear un nuevo usuario.</br>
+        <br>-Deberá ingresar los datos solicitados.</br>
+        <br>-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.</br>
+        <br>-La contraseña solicitada deberá contener un mínimo de 6 caracteres.</br>
+        <br>-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear la cuenta de acceso.</br>
+        <br>-Finalmente mostrará la pantalla principal donde podrá ver el listado de usuarios y comprobar que se ha creado el nuevo usuario.</br>
+    </string>
+    <string name="titulo5"><br />¿Qué hacer si olvidé mi contraseña?</string>
+    <string name="ayuda5">Si ha olvidado su contraseña puede recuperarla, sólo basta con que recuerde el correo eletrónico con el cual creo su cuenta de usuario.
+        <br>Los pasos que debe seguir son los siguientes:</br>
+        <br />
+        <br>-Abrir la aplicación</br>
+        <br>-Seleccionar el vínculo con letras rojas que dice <b>"Olvidé mi contraseña"</b>.</br>
+        <br>-Se mostrará un cuadro de diálogo donde deberá ingresar el correo electrónico registrado en su cuenta.</br>
+        <br>-Al ingresar su correo, presione el botón <b>"Aceptar"</b>.</br>
+        <br>-Se mostrá una alerta que notifique si se ha podido enviar un correo de recuperación.</br>
+        <br>-Si no se ha podido enviar, debe verificar que ha ingresado su correo correctamente.</br>
+        <br>-Si la recuperación ha sido exitosa deberá revisar el buzón de su correo electrónico, ya que se le abrá enviado un email para recuperar su contraseña.</br>
+        <br>-Al abrir este correo que se le ha enviado, deberá abrir el vínculo que se enciuentra en el cuerpo del mensaje.</br>
+        <br>-Lo llevará a su navegador donde mostrará una ventana para reestablecer la contraseña de su cuenta de acceso.</br>
+        <br>-Aqu+i deberá ingresar la nueva contraseña y presionar el botón <b>"Guardar"</b>.</br>
+        <br>-Finalmente se habrá reestablecido su contraseña y podrá acceder a la aplicación con su nueva contraseña.</br>
+    </string>
 
 </resources>
