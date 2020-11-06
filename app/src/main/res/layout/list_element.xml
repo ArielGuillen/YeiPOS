@@ -51,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/addNUser"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
                 <TextView
@@ -60,7 +59,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="email"
-                    android:textColor="@android:color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
             </LinearLayout>

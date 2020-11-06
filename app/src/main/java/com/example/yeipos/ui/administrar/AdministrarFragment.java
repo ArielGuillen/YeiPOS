@@ -1,15 +1,11 @@
 package com.example.yeipos.ui.administrar;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,26 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yeipos.AboutUs;
-import com.example.yeipos.Ayuda;
-import com.example.yeipos.MainActivity;
 import com.example.yeipos.R;
-import com.example.yeipos.RegistroDeVentas;
-import com.example.yeipos.interfaces.ItemClickListener;
-import com.example.yeipos.login_actividad;
 import com.example.yeipos.users.AgregarUsuarios;
 import com.example.yeipos.users.ListElement;
 import com.example.yeipos.viewholders.AdapterUsuario;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdministrarFragment extends Fragment {
 
@@ -94,17 +82,13 @@ public class AdministrarFragment extends Fragment {
         dbReference.child("usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                elements.clear();
                 if( snapshot.exists() ){
                     for (DataSnapshot dataS : snapshot.getChildren()) {
-                        Log.e("Datos: ", "" + dataS.getValue());
-
                         String id = String.valueOf( dataS.child("id").getValue() );
                         String user = String.valueOf( dataS.child("name").getValue() );
                         String mail = String.valueOf( dataS.child("email").getValue() );
-                        String psw = String.valueOf( dataS.child("passw").getValue() );
-
-                        Log.e("Nombre: ", "" + user );
-                        Log.e("Email: ", "" + mail );
+                        String psw = String.valueOf( dataS.child("password").getValue() );
                         elements.add(new ListElement( id, user, mail, psw ));
                     }
                 }
@@ -177,29 +161,51 @@ public class AdministrarFragment extends Fragment {
     }
     public void removeItem(final int position ){
         final ListElement element = elements.get( position );
+        Log.e("Email1: ", "" + element.getEmail() );
+        Log.e("Pass1: ", "" + element.getPassword());
         AlertDialog.Builder alert = new AlertDialog.Builder( getContext() );
         alert.setMessage(" ¿Desea eliminar el usuario " +elements.get( position ).getName() +"?" )
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                        mAuth.signInWithEmailAndPassword(element.getEmail(), element.getPassword() );
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if( user != null ) {
-                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    dbReference.child("usuario").child(elements.get( position ).getId() ).removeValue();
-                                    elements.remove(position);
-                                    adaptador.notifyItemRemoved(position);
-                                    Toast.makeText(getContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+                        dbReference.child("usuario").child(element.getId() ).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+//                                Log.e("Email2: ", "" + element.getEmail() );
+//                                Log.e("Pass2: ", "" + element.getPassword());
+//                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//                                FirebaseUser user = mAuth.getCurrentUser();
+//                                String email = user.getEmail();
+//                                String password = buscarUsuario(email);
+//                                mAuth.signOut();
+//
+//                                mAuth.signInWithEmailAndPassword(element.getEmail(), element.getPassword());
+//                                user = mAuth.getCurrentUser();
+//                                if(user!=null){
+//                                    user.delete();
+//                                }
+                                Toast.makeText(getContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show();
+                                //mAuth.signInWithEmailAndPassword(email, password);
+                            }
+                        });
                     }
                 });
         AlertDialog titulo = alert.create();
         titulo.setTitle("Confirmar eliminación");
         titulo.show();
+    }
+
+    private String buscarUsuario(String email) {
+        String psw = "";
+        ListElement aux = new ListElement();
+
+        for(int i = 0; i < elements.size(); i++){
+            aux = elements.get(i);
+            if(aux.getEmail().equals(email)){
+                psw = aux.getPassword();
+                break;
+            }
+        }
+        return psw;
     }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,8 @@ public class HomeFragment extends Fragment {
     ArrayList<OrderCardViewHome> ordenCards = new ArrayList<>();
     private OrdenesCardAdapter mAdapter;
 
+    AppCompatActivity activity;
+
     private RecyclerView mRecyclerView;
     private DatabaseReference ordenesRef;
     private FirebaseRecyclerAdapter adapter;
@@ -50,6 +53,9 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ordenesRef = FirebaseDatabase.getInstance().getReference();
+
+        activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setTitle(R.string.title_ordenes);
 
         mRecyclerView = root.findViewById(R.id.recycler_home);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

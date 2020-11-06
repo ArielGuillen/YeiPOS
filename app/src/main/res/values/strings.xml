@@ -102,50 +102,48 @@
         \nPor ultimo presionar el botón de <b>"Finalizar"</b>.\n
     </string>
 
-    <string name="titulo4"><br />¿Cómo crear un usuario?</string>
+    <string name="titulo4">¿Cómo crear un usuario?</string>
     <string name="ayuda4">Hay dos maneras de agregar un usuario, ya sea registrándose para acceder por primera vez
         o dentro de la aplicación desde la vista de administrar usuarios para crear un nuevo registro.
-        <br />
-        <br><b>Iniciar sesión por primera vez</b></br>
+        \n<b>Iniciar sesión por primera vez</b>
     </string>
     <string name="ayuda4_1">
-        <br>-Debe abrir la aplicación y presionar el botón <b>Registrarse</b>.</br>
-        <br>-Lo llevará a otra ventana donde deberá ingresar los datos solicitados.</br>
-        <br>-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.</br>
-        <br>-La contraseña solicitada deberá contener un mínimo de 6 caracteres.</br>
-        <br>-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear su cuenta de acceso.</br>
-        <br>-Finalmente le mostrará la pantalla para iniciar sesión donde podrá acceder a la aplicación, para ello deberá introducir el correo electrónico y la contraseña que registró previamente.</br>
+        \n-Debe abrir la aplicación y presionar el botón <b>Registrarse</b>.
+        \n-Lo llevará a otra ventana donde deberá ingresar los datos solicitados.
+        \n-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.
+        \n-La contraseña solicitada deberá contener un mínimo de 6 caracteres.
+        \n-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear su cuenta de acceso.
+        \n-Finalmente le mostrará la pantalla para iniciar sesión donde podrá acceder a la aplicación, para ello deberá introducir el correo electrónico y la contraseña que registró previamente.
     </string>
     <string name="ayuda4_2">
         <br><b>Crear usuario desde la vista administrador</b></br>
     </string>
     <string name="ayuda4_2_1">
-        <br>-Inicie sesión en la aplicación.</br>
-        <br>-Lo llevará a la ventana principal donde podrá visualizar la barra de navegación en la parte inferior. Aquí deberá seleccionar el ícono de administrar.</br>
-        <br>-Se le mostrará una lista de los usuarios registrados actualmente en la aplicación.</br>
-        <br>-Deberá presionar el botón circular con el ícono <b>+</b> en la parte inferior de la pantalla.</br>
-        <br>-Lo llevará a la ventana donde podrá crear un nuevo usuario.</br>
-        <br>-Deberá ingresar los datos solicitados.</br>
-        <br>-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.</br>
-        <br>-La contraseña solicitada deberá contener un mínimo de 6 caracteres.</br>
-        <br>-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear la cuenta de acceso.</br>
-        <br>-Finalmente mostrará la pantalla principal donde podrá ver el listado de usuarios y comprobar que se ha creado el nuevo usuario.</br>
+        \n-Inicie sesión en la aplicación.
+        \n-Lo llevará a la ventana principal donde podrá visualizar la barra de navegación en la parte inferior. Aquí deberá seleccionar el ícono de administrar.
+        \n-Se le mostrará una lista de los usuarios registrados actualmente en la aplicación.
+        \n-Deberá presionar el botón circular con el ícono <b>+</b> en la parte inferior de la pantalla.
+        \n-Lo llevará a la ventana donde podrá crear un nuevo usuario.
+        \n-Deberá ingresar los datos solicitados.
+        \n-Todos los campos son obligatorios, así que debe llenar correctamente cada campo.
+        \n-La contraseña solicitada deberá contener un mínimo de 6 caracteres.
+        \n-Una vez que los campos estén correctamente presione el botón <b>"Agregar Usuario"</b> para crear la cuenta de acceso.
+        \n-Finalmente mostrará la pantalla principal donde podrá ver el listado de usuarios y comprobar que se ha creado el nuevo usuario.
     </string>
-    <string name="titulo5"><br />¿Qué hacer si olvidé mi contraseña?</string>
+    <string name="titulo5">¿Qué hacer si olvidé mi contraseña?</string>
     <string name="ayuda5">Si ha olvidado su contraseña puede recuperarla, sólo basta con que recuerde el correo eletrónico con el cual creo su cuenta de usuario.
-        <br>Los pasos que debe seguir son los siguientes:</br>
-        <br />
-        <br>-Abrir la aplicación</br>
-        <br>-Seleccionar el vínculo con letras rojas que dice <b>"Olvidé mi contraseña"</b>.</br>
-        <br>-Se mostrará un cuadro de diálogo donde deberá ingresar el correo electrónico registrado en su cuenta.</br>
-        <br>-Al ingresar su correo, presione el botón <b>"Aceptar"</b>.</br>
-        <br>-Se mostrá una alerta que notifique si se ha podido enviar un correo de recuperación.</br>
-        <br>-Si no se ha podido enviar, debe verificar que ha ingresado su correo correctamente.</br>
-        <br>-Si la recuperación ha sido exitosa deberá revisar el buzón de su correo electrónico, ya que se le abrá enviado un email para recuperar su contraseña.</br>
-        <br>-Al abrir este correo que se le ha enviado, deberá abrir el vínculo que se enciuentra en el cuerpo del mensaje.</br>
-        <br>-Lo llevará a su navegador donde mostrará una ventana para reestablecer la contraseña de su cuenta de acceso.</br>
-        <br>-Aqu+i deberá ingresar la nueva contraseña y presionar el botón <b>"Guardar"</b>.</br>
-        <br>-Finalmente se habrá reestablecido su contraseña y podrá acceder a la aplicación con su nueva contraseña.</br>
+        \nLos pasos que debe seguir son los siguientes:
+        \n-Abrir la aplicación
+        \n-Seleccionar el vínculo con letras rojas que dice <b>"Olvidé mi contraseña"</b>.
+        \n-Se mostrará un cuadro de diálogo donde deberá ingresar el correo electrónico registrado en su cuenta.
+        \n-Al ingresar su correo, presione el botón <b>"Aceptar"</b>.
+        \n-Se mostrá una alerta que notifique si se ha podido enviar un correo de recuperación.
+        \n-Si no se ha podido enviar, debe verificar que ha ingresado su correo correctamente.
+        \n-Si la recuperación ha sido exitosa deberá revisar el buzón de su correo electrónico, ya que se le abrá enviado un email para recuperar su contraseña.
+        \n-Al abrir este correo que se le ha enviado, deberá abrir el vínculo que se enciuentra en el cuerpo del mensaje.
+        \n-Lo llevará a su navegador donde mostrará una ventana para reestablecer la contraseña de su cuenta de acceso.
+        \n-Aqu+i deberá ingresar la nueva contraseña y presionar el botón <b>"Guardar"</b>.
+        \n-Finalmente se habrá reestablecido su contraseña y podrá acceder a la aplicación con su nueva contraseña.
     </string>
 
 </resources>

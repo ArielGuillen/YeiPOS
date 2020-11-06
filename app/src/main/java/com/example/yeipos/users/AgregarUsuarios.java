@@ -110,14 +110,13 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario, inicie sesión para continuar", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(AgregarUsuarios.this, "Se ha registrado el usuario", Toast.LENGTH_LONG).show();
                                             DatabaseReference prodReference = FirebaseDatabase.getInstance().getReference();
                                             String id = UUID.randomUUID().toString();
                                             ListElement usuario = new ListElement( id,uName, email, psw1);
 
                                             prodReference.child("usuario").child(id).setValue(usuario);
-                                                Intent intent = new Intent(AgregarUsuarios.this, login_actividad.class);
-                                                startActivity(intent);
+                                            finish();
                                         }
                                         else {
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException)

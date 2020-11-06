@@ -6,6 +6,7 @@ public class ListElement {
     public String email;
     public String password;
 
+    public ListElement(){}
 
     //--------------------------------Constructors-----------------------------
     public ListElement(String name, String email) {
