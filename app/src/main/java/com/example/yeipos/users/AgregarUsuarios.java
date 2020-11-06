@@ -48,6 +48,7 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
     private String changeId;
     private String changePsw;
     private String changeEmail;
+    private String login;
 
     public FirebaseAuth mAuth;
     public ProgressDialog progressDialog;
@@ -65,6 +66,9 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
         txtAddPsw2 = findViewById(R.id.txtConfirmPassword);
 
         //Obtener valores de modificación
+        login = getIntent().getStringExtra("login");
+        if( login != null )
+            login = "login";
         changeId = getIntent().getStringExtra("id");
         changePsw = getIntent().getStringExtra("pswd");
         if ( changeId != null ) {
@@ -112,8 +116,8 @@ public class AgregarUsuarios extends AppCompatActivity implements View.OnClickLi
                                             ListElement usuario = new ListElement( id,uName, email, psw1);
 
                                             prodReference.child("usuario").child(id).setValue(usuario);
-                                            Intent intent = new Intent(AgregarUsuarios.this, login_actividad.class);
-                                            startActivity(intent);
+                                                Intent intent = new Intent(AgregarUsuarios.this, login_actividad.class);
+                                                startActivity(intent);
                                         }
                                         else {
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException)
