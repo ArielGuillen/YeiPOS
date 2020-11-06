@@ -79,31 +79,27 @@
         en la parte inferior izquierda de la pantalla.
         Ahora presione el botón circular azul con una con el símbolo <b>"+"</b>.
         Se abrirá una nueva pantalla en la cual podrá:
-        <br>Elegir la mesa a la que pertenece la orden.</br>
-        Escoger el alimento y la cantidad de este.
-        Escoger las bebidas y cantidad de estas.
-        Una vez seleccionado, presionar el botón <b>"Agregar"</b>.
+        \nElegir la mesa a la que pertenece la orden.
+        \nEscoger el alimento y la cantidad de este.
+        \nEscoger las bebidas y cantidad de estas.
+        \nUna vez seleccionado, presionar el botón <b>"Agregar"</b>.\n
     </string>
-
     <string name="titulo2">¿Cómo editar una orden?</string>
     <string name="ayuda2">Iniciar Sesión en la aplicación
-        <br>Presionar el botón <b>"Editar"</b> en la orden correspondiente.</br>
-        <br>Desplegar las listas para seleccionar la cantidad de platillos y bebidas.
+        \nPresionar el botón <b>"Editar"</b> en la orden correspondiente.
+        \nDesplegar las listas para seleccionar la cantidad de platillos y bebidas.
             Puede mostrar estas listas mediante los botones
             de <b>"Comidas"</b> y <b>"Bebidas"</b>
-        </br>
-        <br>Presionar el botón de <b>"Modificar"</b>.</br>
-        Confirmar orden.
+        \nPresionar el botón de <b>"Modificar"</b>. Orden editada.\n
     </string>
 
     <string name="titulo3">¿Cómo terminar una orden?</string>
     <string name="ayuda3">Iniciar Sesión en la aplicación
-        <br>Presionar el botón <b>"Terminar"</b> en la orden correspondiente.</br>
-        <br>Aparecerá una advertencia para terminar la orden o no.</br>
-        <br>Si presiona <b>"Si"</b> se mostrará una nueva pantalla. La cual mostrara los platillos
+        \nPresionar el botón <b>"Terminar"</b> en la orden correspondiente.
+        \nAparecerá una advertencia para terminar la orden o no.
+        \nSi presiona <b>"Si"</b> se mostrará una nueva pantalla. La cual mostrara los platillos
             ordenados y el costo, además del total de la cuenta.
-        </br>
-        <br>Por ultimo presionar el botón de <b>"Finalizar"</b>.</br>
+        \nPor ultimo presionar el botón de <b>"Finalizar"</b>.\n
     </string>
 
 
